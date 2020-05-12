@@ -3,6 +3,9 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+import 'leaflet.gridlayer.googlemutant/Leaflet.GoogleMutant';
+
+import maps from './maps.js';
 
 export var MapTypes = {
     _TRACKING_: 'TRACKING_MAP',
@@ -31,7 +34,28 @@ export class LMap {
     }
 
     setTileLayer(templateUrl, options) {
-        L.tileLayer(templateUrl, options).addTo(this.map);
+        // L.tileLayer(templateUrl, options).addTo(this.map);
+        // L.gridLayer.googleMutant({
+		// 	maxZoom: 24,
+		// 	type:'roadmap'
+		// }).addTo(this.map);
+    }
+
+    addLayersControl(layers, options){
+        var baseMaps = {};
+        layers.forEach(l => {
+            var _map = maps[l], _layer;
+
+            if(_map.type == 'leaflet')
+                _layer = L.tileLayer(_map.url, {..._map.options, ...options});
+            else
+                _layer = L.gridLayer.googleMutant(_map.options);
+
+            if(!Object.keys(baseMaps).length) _layer.addTo(this.map);
+            baseMaps[_map.name] = _layer;
+        });
+
+        L.control.layers(baseMaps).addTo(this.map);
     }
 
     drawPath(latlngs, options){
