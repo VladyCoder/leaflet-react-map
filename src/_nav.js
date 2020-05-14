@@ -128,13 +128,13 @@ export default {
       url: '/maps',
       icon: 'icon-location-pin',
       children: [
-        // {
-        //   name: 'MapTypes',
-        //   url: '/maps/maptypes',
-        // },
         {
-          name: 'Markers',
-          url: '/maps/markers',
+          name: 'MapTypes',
+          url: '/maps/maptypes',
+        },
+        {
+          name: 'MapFunctions',
+          url: '/maps/mapfunctions',
         },
       ]
     },

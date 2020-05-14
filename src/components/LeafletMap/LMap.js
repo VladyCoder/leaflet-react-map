@@ -28,19 +28,22 @@ export class LMap {
             ...MapMenu
         });
 
-        this.Sidebar = lmapSidebar(id);
-        L.control.sidebar({
-            autopan: false,
-            closeButton: true,
-            container: id + "__lmap-sidebar",
-            position: 'left'
-        }).addTo(this.map);
-
-        this.createElevation();
-        
-
         this.mapType = type;
         this.options = options;
+
+        if(this.options.sidebar){
+            this.Sidebar = lmapSidebar(id);
+            L.control.sidebar({
+                autopan: false,
+                closeButton: true,
+                container: id + "__lmap-sidebar",
+                position: 'left'
+            }).addTo(this.map);
+        }
+        
+        if(this.options.elevation){
+            this.createElevation();
+        }
 
         this.mapElements = [];
         this.clusterGroup = L.markerClusterGroup();
@@ -101,11 +104,10 @@ export class LMap {
             else marker.addTo(this.map);
         });
 
-        if(this.options.clustering){
+        if(this.options.clustering)
             this.map.addLayer(this.clusterGroup);
-        }
-
-        this.Sidebar.setData(elements);
+        if(this.options.sidebar)
+            this.Sidebar.setData(elements);
     }
 
     removeElement(id){

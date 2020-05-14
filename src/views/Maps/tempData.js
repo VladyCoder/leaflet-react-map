@@ -40,10 +40,90 @@ export var data = {
                 '6': {cord: '32.434343, 43.043043', timestamp: 2342342444}
             }
         },
+        {
+            id: "0003",
+            name: "Red Car",
+            type: "moving_elem",
+            icon: {icon: "fa fa-car", color: '#dd18ff'},
+            status: 'enabled',
+            cord: '46.9547232,7.3598507',
+            prop: {
+                is_moving: true,
+                tags: ['is_car', 'is_beatiful', 'has_wheels']
+            },
+            data: {
+                '1': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '2': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '3': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '4': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '5': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '6': {cord: '32.434343, 43.043043', timestamp: 2342342444}
+            }
+        },
+        {
+            id: "0004",
+            name: "Red Car",
+            type: "moving_elem",
+            icon: {icon: "fa fa-car", color: '#028fff'},
+            status: 'enabled',
+            cord: '47.5546492,7.5594406',
+            prop: {
+                is_moving: true,
+                tags: ['is_car', 'is_beatiful', 'has_wheels']
+            },
+            data: {
+                '1': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '2': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '3': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '4': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '5': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '6': {cord: '32.434343, 43.043043', timestamp: 2342342444}
+            }
+        },
+        {
+            id: "0005",
+            name: "Red Car",
+            type: "moving_elem",
+            icon: {icon: "fa fa-car", color: '#ff9902'},
+            status: 'enabled',
+            cord: '46.5285767,6.5824555',
+            prop: {
+                is_moving: true,
+                tags: ['is_car', 'is_beatiful', 'has_wheels']
+            },
+            data: {
+                '1': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '2': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '3': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '4': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '5': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '6': {cord: '32.434343, 43.043043', timestamp: 2342342444}
+            }
+        },
+        {
+            id: "0006",
+            name: "Red Car",
+            type: "moving_elem",
+            icon: {icon: "fa fa-car", color: '#2dda34'},
+            status: 'enabled',
+            cord: '46.0295228,8.9216256',
+            prop: {
+                is_moving: true,
+                tags: ['is_car', 'is_beatiful', 'has_wheels']
+            },
+            data: {
+                '1': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '2': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '3': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '4': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '5': {cord: '32.434343, 43.043043', timestamp: 2342342444},
+                '6': {cord: '32.434343, 43.043043', timestamp: 2342342444}
+            }
+        },
         
         ////////// heat 
         {
-            id: "0003",
+            id: "0101",
             name: "High Temperature",
             type: "fixed_elem",
             icon: {icon: "fa fa-thermometer-empty", color: 'red'},
@@ -56,12 +136,51 @@ export var data = {
             }
         },
         {
-            id: "0004",
+            id: "0102",
             name: "Low Temperature",
             type: "fixed_elem",
             icon: {icon: "fa fa-thermometer-empty", color: 'green'},
             status: 'enabled',
             cord: '50.7704562,15.0586805',
+            severity: 'critical',
+            prop: {
+                is_moving: true,
+                tags: ['is_sensor', 'is_small', 'fast_sensor']
+            }
+        },
+        {
+            id: "0103",
+            name: "Low Temperature",
+            type: "fixed_elem",
+            icon: {icon: "fa fa-thermometer-empty", color: '#f9e10e'},
+            status: 'enabled',
+            cord: '46.109581,8.270543',
+            severity: 'critical',
+            prop: {
+                is_moving: true,
+                tags: ['is_sensor', 'is_small', 'fast_sensor']
+            }
+        },
+        {
+            id: "0104",
+            name: "Low Temperature",
+            type: "fixed_elem",
+            icon: {icon: "fa fa-thermometer-empty", color: 'green'},
+            status: 'enabled',
+            cord: '47.3775499,8.4666756',
+            severity: 'critical',
+            prop: {
+                is_moving: true,
+                tags: ['is_sensor', 'is_small', 'fast_sensor']
+            }
+        },
+        {
+            id: "0105",
+            name: "Low Temperature",
+            type: "fixed_elem",
+            icon: {icon: "fa fa-thermometer-empty", color: '#e4145b'},
+            status: 'enabled',
+            cord: '46.7650062,9.7738806',
             severity: 'critical',
             prop: {
                 is_moving: true,

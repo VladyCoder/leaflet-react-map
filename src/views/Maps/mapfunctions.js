@@ -4,9 +4,16 @@ import { LMap, MapTypes } from '../../components/LeafletMap';
 
 import { data } from './tempData';
 
-export default class Markers extends React.Component{
+export default class MapFunctions extends React.Component{
     componentDidMount(){
-        this.markersMap = new LMap('position_map', MapTypes._POSITION_, { center: [50.073658, 14.418540], zoom: 6, clustering: true});
+        this.markersMap = new LMap('position_map', MapTypes._POSITION_, { 
+            center: [46.9547232,8.8598507],
+            zoom: 8,
+            clustering: true,
+            sidebar: true,
+            elevation: true
+        });
+
         this.markersMap.addLayersControl([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
             detectRetina: true,
             maxZoom: 19,
