@@ -1,50 +1,50 @@
 import React from 'react';
 import { Row, Col, Card, CardBody, CardHeader } from 'reactstrap';
-import { LMap, MapTypes, MapIcons } from '../../components/LeafletMap';
+import { LMap, MapTypes } from '../../components/LeafletMap';
 
-function getRandomMarker(limit){
-    var _markers = [];
-    for(var i = 0; i < limit; i++){
-        _markers.push({
-            latlng: [Math.random()*60 + 20, Math.random()*60 - 15],
-            icon: MapIcons[Object.keys(MapIcons)[Math.floor(Math.random()*2)]]
-        });
-    };
-    return _markers;
-}
+import { data } from './tempData';
 
 export default class Maps extends React.Component{
     componentDidMount(){
-        this.trackingMap = new LMap('tracking_map', { center: [50.073658, 14.418540], zoom: 6}, MapTypes._TRACKING_);
+        this.trackingMap = new LMap('tracking_map', MapTypes._TRACKING_, { center: [50.073658, 14.418540], zoom: 6, clustering: true });
         this.trackingMap.addLayersControl([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
             detectRetina: true,
             maxZoom: 19,
             maxNativeZoom: 17,
         });
 
-        this.trackingMap.drawPath([
-            [50.073658, 14.418540],
-            [51, 16],
-            [51.5, 15.8],
-            [52, 15],
-            [52, 13]
-        ], {color: 'red'});
+        this.trackingMap.addElements(data.map_elem);
 
 
-        this.positionMap = new LMap('position_map', { center: [50.073658, 14.418540], zoom: 6}, MapTypes._POSITION_);
+        this.positionMap = new LMap('position_map', MapTypes._POSITION_, { 
+            center: [50.073658, 14.418540],
+            zoom: 6
+        });
         this.positionMap.addLayersControl([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
             detectRetina: true,
             maxZoom: 19,
             maxNativeZoom: 17,
         });
-        this.positionMap.drawMarker(getRandomMarker(50));
+        this.positionMap.addElements(data.map_elem);
+
+
+        this.heatmap = new LMap('heat_map', MapTypes._HEAT_, {
+            center: [50.073658, 14.418540],
+            zoom: 6,
+        });
+        this.heatmap.addLayersControl([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
+            detectRetina: true,
+            maxZoom: 19,
+            maxNativeZoom: 17,
+        });
+        this.heatmap.addElements(data.map_elem);
     };
 
     render(){
         
         return (
             <Row>
-                <Col sm="12" md="6">
+                <Col sm="12" md="6" lg="4">
                     <Card>
                         <CardHeader>
                             Tracking Map
@@ -54,7 +54,7 @@ export default class Maps extends React.Component{
                         </CardBody>
                     </Card>
                 </Col>
-                <Col sm="12" md="6">
+                <Col sm="12" md="6"  lg="4">
                     <Card>
                         <CardHeader>
                             Position Map
@@ -64,7 +64,16 @@ export default class Maps extends React.Component{
                         </CardBody>
                     </Card>
                 </Col>
-                
+                <Col sm="12" md="6" lg="4">
+                    <Card>
+                        <CardHeader>
+                            Heat Map
+                        </CardHeader>
+                        <CardBody>
+                            <div id="heat_map" style={{height: '400px'}}></div>
+                        </CardBody>
+                    </Card>
+                </Col>
             </Row>
         );
     }
