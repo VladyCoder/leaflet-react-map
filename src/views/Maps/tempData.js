@@ -42,7 +42,7 @@ export var data = {
         },
         {
             id: "0003",
-            name: "Red Car",
+            name: "Small Car 1",
             type: "moving_elem",
             icon: {icon: "fa fa-car", color: '#dd18ff'},
             status: 'enabled',
@@ -62,7 +62,7 @@ export var data = {
         },
         {
             id: "0004",
-            name: "Red Car",
+            name: "Small Car 2",
             type: "moving_elem",
             icon: {icon: "fa fa-car", color: '#028fff'},
             status: 'enabled',
@@ -82,7 +82,7 @@ export var data = {
         },
         {
             id: "0005",
-            name: "Red Car",
+            name: "Small Car 3",
             type: "moving_elem",
             icon: {icon: "fa fa-car", color: '#ff9902'},
             status: 'enabled',
@@ -102,7 +102,7 @@ export var data = {
         },
         {
             id: "0006",
-            name: "Red Car",
+            name: "Small Car 4",
             type: "moving_elem",
             icon: {icon: "fa fa-car", color: '#2dda34'},
             status: 'enabled',
@@ -124,7 +124,7 @@ export var data = {
         ////////// heat 
         {
             id: "0101",
-            name: "High Temperature",
+            name: "Temperature 1",
             type: "fixed_elem",
             icon: {icon: "fa fa-thermometer-empty", color: 'red'},
             status: 'enabled',
@@ -137,7 +137,7 @@ export var data = {
         },
         {
             id: "0102",
-            name: "Low Temperature",
+            name: "Temperature 2",
             type: "fixed_elem",
             icon: {icon: "fa fa-thermometer-empty", color: 'green'},
             status: 'enabled',
@@ -150,7 +150,7 @@ export var data = {
         },
         {
             id: "0103",
-            name: "Low Temperature",
+            name: "Temperature 3",
             type: "fixed_elem",
             icon: {icon: "fa fa-thermometer-empty", color: '#f9e10e'},
             status: 'enabled',
@@ -163,7 +163,7 @@ export var data = {
         },
         {
             id: "0104",
-            name: "Low Temperature",
+            name: "Temperature 4",
             type: "fixed_elem",
             icon: {icon: "fa fa-thermometer-empty", color: 'green'},
             status: 'enabled',
@@ -176,7 +176,7 @@ export var data = {
         },
         {
             id: "0105",
-            name: "Low Temperature",
+            name: "Temperature 5",
             type: "fixed_elem",
             icon: {icon: "fa fa-thermometer-empty", color: '#e4145b'},
             status: 'enabled',

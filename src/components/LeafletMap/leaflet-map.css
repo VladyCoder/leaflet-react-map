@@ -1,0 +1,13 @@
+.leaflet-control-routing-btn .btn{
+    line-height: 1;
+}
+.leaflet-control-routing-btn .btn::before{
+    content: "\21AF";
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1rem;
+}
+
+.leaflet-control-routing-btn.open .btn::before{
+    content: "\0058";
+}

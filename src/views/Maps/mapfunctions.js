@@ -11,14 +11,17 @@ export default class MapFunctions extends React.Component{
             zoom: 8,
             clustering: true,
             sidebar: true,
-            elevation: true
+            elevation: true,
+            geosearch: true,
+            routing: true
         });
 
-        this.markersMap.addLayersControl([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
+        this.markersMap.addTileLayers([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
             detectRetina: true,
             maxZoom: 19,
             maxNativeZoom: 17,
         });
+        
         this.markersMap.addElements(data.map_elem);
     };
 

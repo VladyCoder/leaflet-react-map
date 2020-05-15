@@ -7,7 +7,7 @@ import { data } from './tempData';
 export default class Maps extends React.Component{
     componentDidMount(){
         this.trackingMap = new LMap('tracking_map', MapTypes._TRACKING_, { center: [50.073658, 14.418540], zoom: 6, clustering: true });
-        this.trackingMap.addLayersControl([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
+        this.trackingMap.addTileLayers([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
             detectRetina: true,
             maxZoom: 19,
             maxNativeZoom: 17,
@@ -20,7 +20,7 @@ export default class Maps extends React.Component{
             center: [50.073658, 14.418540],
             zoom: 6
         });
-        this.positionMap.addLayersControl([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
+        this.positionMap.addTileLayers([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
             detectRetina: true,
             maxZoom: 19,
             maxNativeZoom: 17,
@@ -32,7 +32,7 @@ export default class Maps extends React.Component{
             center: [50.073658, 14.418540],
             zoom: 6,
         });
-        this.heatmap.addLayersControl([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
+        this.heatmap.addTileLayers([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
             detectRetina: true,
             maxZoom: 19,
             maxNativeZoom: 17,
