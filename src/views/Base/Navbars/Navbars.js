@@ -1,31 +1,42 @@
 import React, { Component } from 'react';
 import {
-  Card,
-  CardBody,
-  CardHeader,
-  Collapse,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Nav,
-  Navbar,
-  NavbarBrand,
-  NavbarToggler,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-} from 'reactstrap';
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCollapse,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+  CNav,
+  CNavbar,
+  CNavbarNav,
+  CNavbarBrand,
+  CNavbarText,
+  CToggler,
+  CNavItem,
+  CNavLink,
+  CDropdown,
+  CForm,
+  CInput,
+  CButton,
+  CImg
+} from '@coreui/react';
+import {
+  CIcon
+} from '@coreui/icons-react';
 
-class Navbars extends Component {
+class CNavbars extends Component {
 
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
-    this.toggleNavbar = this.toggleNavbar.bind(this);
+    this.toggleCNavbar = this.toggleCNavbar.bind(this);
     this.state = {
       isOpen: false,
-      collapsed: true,
+      CCollapsed: true,
+      navbarText: false,
+      navbarDropdown: true
     };
   }
 
@@ -35,84 +46,84 @@ class Navbars extends Component {
     });
   }
 
-  toggleNavbar() {
+  toggleCNavbar() {
     this.setState({
-      collapsed: !this.state.collapsed,
+      CCollapsed: !this.state.CCollapsed,
     });
   }
 
   render() {
     return (
       <div className="animated fadeIn">
-        <Card>
-          <CardHeader>
-            <i className="fa fa-align-justify"></i><strong>Navbar</strong>
-            <div className="card-header-actions">
-              <a href="https://reactstrap.github.io/components/navbar/" rel="noreferrer noopener" target="_blank" className="card-header-action">
-                <small className="text-muted">docs</small>
-              </a>
-            </div>
-          </CardHeader>
-          <CardBody>
-            <Navbar color="info" light expand="md">
-              <NavbarBrand href="/">Bootstrap</NavbarBrand>
-              <NavbarToggler onClick={this.toggle} />
-              <Collapse isOpen={this.state.isOpen} navbar>
-                <Nav className="ml-auto" navbar>
-                  <NavItem>
-                    <NavLink href="#/components/navbars">Components</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="https://github.com/reactstrap/reactstrap" target="_blank">Github</NavLink>
-                  </NavItem>
-                  <UncontrolledDropdown nav inNavbar>
-                    {/*Warning: React does not recognize the `inNavbar` prop on a DOM element.*/}
-                    {/*waiting for reactstrap@5.0.0-alpha.5*/}
-                    <DropdownToggle nav caret>
-                      Options
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem>
-                        Option 1
-                      </DropdownItem>
-                      <DropdownItem>
-                        Option 2
-                      </DropdownItem>
-                      <DropdownItem divider />
-                      <DropdownItem>
-                        Reset
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </Nav>
-              </Collapse>
-            </Navbar>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardHeader>
-            <i className="fa fa-align-justify"></i><strong>Navbar Toggler</strong>
-          </CardHeader>
-          <CardBody>
-            <Navbar color="success" light>
-              <NavbarBrand href="/" className="mr-auto">Bootstrap</NavbarBrand>
-              <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-              <Collapse isOpen={!this.state.collapsed} navbar>
-                <Nav navbar>
-                  <NavItem>
-                    <NavLink href="#/components/navbars">Components</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
-                  </NavItem>
-                </Nav>
-              </Collapse>
-            </Navbar>
-          </CardBody>
-        </Card>
+
+        <CCard custom>
+          <CCardHeader>
+            CNavbar brand
+          </CCardHeader>
+          <CCardBody>
+            <CNavbar color="faded" light>
+              <CNavbarBrand href="#">
+                <CImg src="https://placekitten.com/g/30/30" className="d-inline-block align-top" alt="CoreuiVue" />
+                Text
+              </CNavbarBrand>
+            </CNavbar>
+          </CCardBody>
+        </CCard>
+
+        <CCard custom>
+          <CCardHeader>
+            CNavbar text
+          </CCardHeader>
+          <CCardBody>
+            <CNavbar toggleable="sm" light color="light">
+              <CToggler inNavbar toggle={()=>{this.setState({navbarText: !this.state.navbarText})}} />
+              <CNavbarBrand>brand</CNavbarBrand>
+              <CCollapse custom show={this.state.navbarText}>
+                <CNavbarNav>
+                  <CNavbarText>Navbar text</CNavbarText>
+                </CNavbarNav>
+              </CCollapse>
+            </CNavbar>
+          </CCardBody>
+        </CCard>
+
+        <CCard custom>
+          <CCardHeader>
+            CNavbar form
+          </CCardHeader>
+          <CCardBody>
+            <CNavbar light color="light">
+              <CForm inline>
+                <CInput
+                  className="mr-sm-2"
+                  placeholder="Search"
+                  size="sm"
+                />
+                <CButton color="outline-success" className="my-2 my-sm-0" type="submit">Search</CButton>
+              </CForm>
+            </CNavbar>
+          </CCardBody>
+        </CCard>
+
+        <CCard custom>
+          <CCardHeader>
+            CNavbar input group
+          </CCardHeader>
+          <CCardBody>
+            <CNavbar light color="light">
+              <CForm inline>
+                <CInput
+                  className="mr-sm-2"
+                  placeholder="Username"
+                />
+              </CForm>
+            </CNavbar>
+          </CCardBody>
+        </CCard>
+
       </div>
     );
   }
 }
 
-export default Navbars;
+export default CNavbars;

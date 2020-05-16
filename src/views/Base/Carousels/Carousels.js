@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
+import {
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCarousel,
+  CCarouselCaption,
+  CCarouselControl,
+  CCarouselIndicators,
+  CCarouselItem,
+  CCol,
+  CRow } from '@coreui/react';
 
 const items = [
   {
@@ -61,61 +71,90 @@ class Carousels extends Component {
 
     const slides = items.map((item) => {
       return (
-        <CarouselItem onExiting={this.onExiting} onExited={this.onExited} key={item.src}>
+        <CCarouselItem onExiting={this.onExiting} onExited={this.onExited} key={item.src}>
           <img className="d-block w-100" src={item.src} alt={item.altText} />
-        </CarouselItem>
+        </CCarouselItem>
       );
     });
 
     const slides2 = items.map((item) => {
       return (
-        <CarouselItem
+        <CCarouselItem
           onExiting={this.onExiting}
           onExited={this.onExited}
           key={item.src}
         >
           <img className="d-block w-100" src={item.src} alt={item.altText} />
-          <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-        </CarouselItem>
+          <CCarouselCaption captionText={item.caption} captionHeader={item.caption} />
+        </CCarouselItem>
       );
     });
 
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col xs="12" xl="6">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Carousel</strong>
+        <CRow>
+          <CCol xs="12" xl="6">
+            <CCard custom>
+              <CCardHeader>
+                Carousel
                 <div className="card-header-actions">
-                  <a href="https://reactstrap.github.io/components/carousel/" rel="noreferrer noopener" target="_blank" className="card-header-action">
+                  <a href="https://coreui.github.io/components/carousel/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                     <small className="text-muted">docs</small>
                   </a>
                 </div>
-              </CardHeader>
-              <CardBody>
-                <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous} ride="carousel">
+              </CCardHeader>
+              <CCardBody>
+                <CCarousel custom activeIndex={activeIndex} next={this.next} previous={this.previous} ride="carousel">
                   {slides}
-                </Carousel>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" xl="6">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Carousel</strong>
-              </CardHeader>
-              <CardBody>
-                <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous}>
-                  <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+                </CCarousel>
+              </CCardBody>
+            </CCard>
+          </CCol>
+          <CCol xs="12" xl="6">
+            <CCard custom>
+              <CCardHeader>
+                Carousel
+              </CCardHeader>
+              <CCardBody>
+                <CCarousel custom activeIndex={activeIndex} next={this.next} previous={this.previous}>
+                  <CCarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+                  {slides}
+                  <CCarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+                  <CCarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+                </CCarousel>
+              </CCardBody>
+            </CCard>
+          </CCol>
+          <CCol xs="12" xl="6">
+            <CCard custom>
+              <CCardHeader>
+                Carousel
+              </CCardHeader>
+              <CCardBody>
+                <CCarousel custom activeIndex={activeIndex} next={this.next} previous={this.previous}>
+                  {slides}
+                  <CCarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+                  <CCarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+                </CCarousel>
+              </CCardBody>
+            </CCard>
+          </CCol>
+          <CCol xs="12" xl="6">
+            <CCard custom>
+              <CCardHeader>
+                Carousel
+              </CCardHeader>
+              <CCardBody>
+                <CCarousel custom activeIndex={activeIndex} next={this.next} previous={this.previous}>
+                  <CCarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
                   {slides2}
-                  <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-                  <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
-                </Carousel>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+                  <CCarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+                  <CCarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+                </CCarousel>
+              </CCardBody>
+            </CCard>
+          </CCol>
+        </CRow>
       </div>
     );
   }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown } from 'reactstrap';
 
 class Dropdowns extends Component {
   constructor(props) {
@@ -23,18 +22,18 @@ class Dropdowns extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col xs="12">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Dropdowns</strong>
+        <CRow>
+          <CCol xs="12">
+            <CCard custom>
+              <CCardHeader>
+                <CIcon name="align-justify"/><strong>Dropdowns</strong>
                 <div className="card-header-actions">
-                  <a href="https://reactstrap.github.io/components/dropdowns/" rel="noreferrer noopener" target="_blank" className="card-header-action">
+                  <a href="https://coreui.io/react/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                     <small className="text-muted">docs</small>
                   </a>
                 </div>
-              </CardHeader>
-              <CardBody>
+              </CCardHeader>
+              <CCardBody>
                 <Dropdown isOpen={this.state.dropdownOpen[0]} toggle={() => {
                   this.toggle(0);
                 }}>
@@ -49,14 +48,14 @@ class Dropdowns extends Component {
                     <DropdownItem>Another Action</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
-              </CardBody>
-            </Card>
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Dropdowns</strong>
+              </CCardBody>
+            </CCard>
+            <CCard custom>
+              <CCardHeader>
+                <CIcon name="align-justify"/><strong>Dropdowns</strong>
                 <small> alignment</small>
-              </CardHeader>
-              <CardBody>
+              </CCardHeader>
+              <CCardBody>
                 <Dropdown isOpen={this.state.dropdownOpen[1]} toggle={() => {this.toggle(1);}}>
                   <DropdownToggle caret>
                     This dropdown's menu is right-aligned
@@ -69,14 +68,14 @@ class Dropdowns extends Component {
                     <DropdownItem>Another Action</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
-              </CardBody>
-            </Card>
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Dropdowns</strong>
+              </CCardBody>
+            </CCard>
+            <CCard>
+              <CCardHeader>
+                <CIcon name="align-justify"/><strong>Dropdowns</strong>
                 <small> sizing</small>
-              </CardHeader>
-              <CardBody>
+              </CCardHeader>
+              <CCardBody>
                 <Dropdown isOpen={this.state.dropdownOpen[2]} toggle={() => {this.toggle(2);}} size="lg" className="mb-3">
                   <DropdownToggle caret>
                     Large Dropdown
@@ -113,13 +112,13 @@ class Dropdowns extends Component {
                     <DropdownItem>Another Action</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
-              </CardBody>
-            </Card>
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Custom Dropdowns</strong>
-              </CardHeader>
-              <CardBody>
+              </CCardBody>
+            </CCard>
+            <CCard>
+              <CCardHeader>
+                <CIcon name="align-justify"/><strong>Custom Dropdowns</strong>
+              </CCardHeader>
+              <CCardBody>
                 <Dropdown isOpen={this.state.dropdownOpen[5]} toggle={() => {this.toggle(5);}}>
                   <DropdownToggle
                     tag="span"
@@ -137,13 +136,13 @@ class Dropdowns extends Component {
                     <div onClick={() => {this.toggle(5);}}>Custom dropdown item 4</div>
                   </DropdownMenu>
                 </Dropdown>
-              </CardBody>
-            </Card>
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Uncontrolled Dropdown</strong>
-              </CardHeader>
-              <CardBody>
+              </CCardBody>
+            </CCard>
+            <CCard>
+              <CCardHeader>
+                <CIcon name="align-justify"/><strong>Uncontrolled Dropdown</strong>
+              </CCardHeader>
+              <CCardBody>
                 <UncontrolledDropdown>
                   <DropdownToggle caret>
                     Uncontrolled Dropdown
@@ -156,10 +155,10 @@ class Dropdowns extends Component {
                     <DropdownItem>Another Action</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+              </CCardBody>
+            </CCard>
+          </CCol>
+        </CRow>
       </div>
     );
   }

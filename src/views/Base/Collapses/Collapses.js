@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, Collapse, Fade, Row } from 'reactstrap';
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardFooter,
+  CCardHeader,
+  CCol,
+  CCollapse,
+  CFade,
+  CRow } from '@coreui/react';
 
 class Collapses extends Component {
 
@@ -10,11 +19,13 @@ class Collapses extends Component {
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.toggleMulti = this.toggleMulti.bind(this);
     this.toggleAccordion = this.toggleAccordion.bind(this);
     this.toggleCustom = this.toggleCustom.bind(this);
     this.toggleFade = this.toggleFade.bind(this);
     this.state = {
       collapse: false,
+      collapseMulti: [false, false],
       accordion: [true, false, false],
       custom: [true, false],
       status: 'Closed',
@@ -39,8 +50,33 @@ class Collapses extends Component {
     this.setState({ status: 'Closed' });
   }
 
-  toggle() {
+  toggle(e) {
     this.setState({ collapse: !this.state.collapse });
+    e.preventDefault();
+  }
+
+  toggleMulti(type) {
+
+    const collapseMulti = this.state.collapseMulti;
+
+    switch (type) {
+      case "left":
+        collapseMulti[0] = !collapseMulti[0];
+        break;
+      case "right":
+        collapseMulti[1] = !collapseMulti[1];
+        break;
+      case "both":
+        collapseMulti[0] = !collapseMulti[0];
+        collapseMulti[1] = !collapseMulti[1];
+        break;
+      default:
+    }
+
+    this.setState({
+      collapseMulti: collapseMulti
+    });
+
   }
 
   toggleAccordion(tab) {
@@ -70,19 +106,20 @@ class Collapses extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col xl="6">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Collapse</strong>
+        <CRow>
+          <CCol xl="6">
+
+            <CCard custom>
+              <CCardHeader>
+                Collapse
                 <div className="card-header-actions">
-                  <a href="https://reactstrap.github.io/components/collapse/" rel="noreferrer noopener" target="_blank" className="card-header-action">
+                  <a href="https://coreui.github.io/components/collapse/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                     <small className="text-muted">docs</small>
                   </a>
                 </div>
-              </CardHeader>
-              <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onEntered={this.onEntered} onExiting={this.onExiting} onExited={this.onExited}>
-                <CardBody>
+              </CCardHeader>
+              <CCollapse custom show={this.state.collapse} onEntering={this.onEntering} onEntered={this.onEntered} onExiting={this.onExiting} onExited={this.onExited}>
+                <CCardBody>
                   <p>
                     Anim pariatur cliche reprehenderit,
                     enim eiusmod high life accusamus terry richardson ad squid. Nihil
@@ -100,131 +137,191 @@ class Collapses extends Component {
                     faucibus ipsum varius eget. Pellentesque imperdiet, turpis sed sagittis lobortis, leo elit laoreet arcu,
                     vehicula sagittis elit leo id nisi.
                   </p>
-                </CardBody>
-              </Collapse>
-              <CardFooter>
-                <Button color="primary" onClick={this.toggle} className={'mb-1'} id="toggleCollapse1">Toggle</Button>
+                </CCardBody>
+              </CCollapse>
+              <CCardFooter>
+                <CButton color="primary" href="#collapseExample" onClick={this.toggle} className={'mb-1'}>Link with href</CButton>{' '}
+                <CButton color="primary" onClick={this.toggle} className={'mb-1'}>Button with data-toggle</CButton>
                 <hr/>
                 <h5>Current state: {this.state.status}</h5>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Fade</strong>
+              </CCardFooter>
+            </CCard>
+
+            <CCard custom>
+              <CCardHeader>
+                Collapse
+                <small> multi target</small>
                 <div className="card-header-actions">
-                  <a href="https://reactstrap.github.io/components/fade/" rel="noreferrer noopener" target="_blank" className="card-header-action">
+                  <a href="https://coreui.github.io/components/collapse/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                     <small className="text-muted">docs</small>
                   </a>
                 </div>
-              </CardHeader>
-              <CardBody>
-                <Fade timeout={this.state.timeout} in={this.state.fadeIn} tag="h5" className="mt-3">
-                  This content will fade in and out as the button is pressed...
-                </Fade>
-              </CardBody>
-              <CardFooter>
-                <Button color="primary" onClick={this.toggleFade} id="toggleFade1">Toggle Fade</Button>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col xl="6">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i> Collapse <small>accordion</small>
+              </CCardHeader>
+                <CCardBody>
+                  <p>
+                    <CButton color="primary" onClick={()=>{this.toggleMulti('left')}}>Left</CButton>{' '}
+                    <CButton color="primary" onClick={()=>{this.toggleMulti('right')}}>Right</CButton>{' '}
+                    <CButton color="primary" onClick={()=>{this.toggleMulti('both')}}>Both</CButton>{' '}
+                  </p>
+                  <CRow>
+                    <CCol>
+                      <CCollapse custom show={this.state.collapseMulti[0]}>
+                        <CCard>
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        </CCard>
+                      </CCollapse>
+                    </CCol>
+                    <CCol className="col-sm-12 col-md-6">
+                      <CCollapse custom show={this.state.collapseMulti[1]}>
+                        <CCard>
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        </CCard>
+                      </CCollapse>
+                    </CCol>
+                  </CRow>
+                </CCardBody>
+            </CCard>
+
+            <hr/>
+
+            <CCard custom>
+              <CCardHeader>
+                Fade
                 <div className="card-header-actions">
-                  <Badge>NEW</Badge>
+                  <a href="https://coreui.github.io/components/fade/" rel="noreferrer noopener" target="_blank" className="card-header-action">
+                    <small className="text-muted">docs</small>
+                  </a>
                 </div>
-              </CardHeader>
-              <CardBody>
+              </CCardHeader>
+              <CCardBody>
+                <CFade timeout={this.state.timeout} in={this.state.fadeIn} tag="h5" className="mt-3">
+                  This content will fade in and out as the button is pressed...
+                </CFade>
+              </CCardBody>
+              <CCardFooter>
+                <CButton color="primary" onClick={this.toggleFade} id="toggleFade1">Toggle Fade</CButton>
+              </CCardFooter>
+            </CCard>
+          </CCol>
+          <CCol xl="6">
+            <CCard custom>
+              <CCardHeader>
+                Collapse
+                <small> accordion</small>
+              </CCardHeader>
+              <CCardBody>
                 <div id="accordion">
-                  <Card className="mb-0">
-                    <CardHeader id="headingOne">
-                      <Button block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(0)} aria-expanded={this.state.accordion[0]} aria-controls="collapseOne">
+                  <CCard custom className="mb-0">
+                    <CCardHeader id="headingOne">
+                      <CButton block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(0)}>
                         <h5 className="m-0 p-0">Collapsible Group Item #1</h5>
-                      </Button>
-                    </CardHeader>
-                    <Collapse isOpen={this.state.accordion[0]} data-parent="#accordion" id="collapseOne" aria-labelledby="headingOne">
-                      <CardBody>
+                      </CButton>
+                    </CCardHeader>
+                    <CCollapse custom show={this.state.accordion[0]}>
+                      <CCardBody>
                         1. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non
                         cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
                         on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
                         nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                      </CardBody>
-                    </Collapse>
-                  </Card>
-                  <Card className="mb-0">
-                    <CardHeader id="headingTwo">
-                      <Button block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(1)} aria-expanded={this.state.accordion[1]} aria-controls="collapseTwo">
+                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS.
+                      </CCardBody>
+                    </CCollapse>
+                  </CCard>
+                  <CCard custom className="mb-0">
+                    <CCardHeader id="headingTwo">
+                      <CButton block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(1)}>
                         <h5 className="m-0 p-0">Collapsible Group Item #2</h5>
-                      </Button>
-                    </CardHeader>
-                    <Collapse isOpen={this.state.accordion[1]} data-parent="#accordion" id="collapseTwo">
-                      <CardBody>
+                      </CButton>
+                    </CCardHeader>
+                    <CCollapse custom show={this.state.accordion[1]}>
+                      <CCardBody>
                         2. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non
                         cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
                         on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
                         nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                      </CardBody>
-                    </Collapse>
-                  </Card>
-                  <Card className="mb-0">
-                    <CardHeader id="headingThree">
-                      <Button block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(2)} aria-expanded={this.state.accordion[2]} aria-controls="collapseThree">
+                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS.
+                      </CCardBody>
+                    </CCollapse>
+                  </CCard>
+                  <CCard custom className="mb-0">
+                    <CCardHeader id="headingThree">
+                      <CButton block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(2)}>
                         <h5 className="m-0 p-0">Collapsible Group Item #3</h5>
-                      </Button>
-                    </CardHeader>
-                    <Collapse isOpen={this.state.accordion[2]} data-parent="#accordion" id="collapseThree">
-                      <CardBody>
+                      </CButton>
+                    </CCardHeader>
+                    <CCollapse custom show={this.state.accordion[2]}>
+                      <CCardBody>
                         3. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non
                         cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
                         on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
                         nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                      </CardBody>
-                    </Collapse>
-                  </Card>
+                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably havent heard of them accusamus labore sustainable VHS.
+                      </CCardBody>
+                    </CCollapse>
+                  </CCard>
                 </div>
-              </CardBody>
-            </Card>
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i> Collapse <small>custom accordion</small>
-                <div className="card-header-actions">
-                  <Badge>NEW</Badge>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <div id="exampleAccordion" data-children=".item">
-                  <div className="item">
-                    <Button className="m-0 p-0" color="link" onClick={() => this.toggleCustom(0)} aria-expanded={this.state.custom[0]} aria-controls="exampleAccordion1">
+              </CCardBody>
+            </CCard>
+            <CCard custom>
+              <CCardHeader>
+                Collapse
+                <small> custom accordion</small>
+              </CCardHeader>
+              <CCardBody>
+                <div id="exampleAccordion">
+                  <div>
+                    <CButton className="m-0 p-0" color="link" onClick={() => this.toggleCustom(0)}>
                       Toggle item
-                    </Button>
-                    <Collapse isOpen={this.state.custom[0]} data-parent="#exampleAccordion" id="exampleAccordion1">
+                    </CButton>
+                    <CCollapse custom show={this.state.custom[0]}>
                       <p className="mb-3">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium lorem non vestibulum scelerisque. Proin a vestibulum sem, eget
                         tristique massa. Aliquam lacinia rhoncus nibh quis ornare.
                       </p>
-                    </Collapse>
+                    </CCollapse>
                   </div>
-                  <div className="item">
-                    <Button className="m-0 p-0" color="link" onClick={() => this.toggleCustom(1)} aria-expanded={this.state.custom[1]} aria-controls="exampleAccordion2">
+                  <div>
+                    <CButton className="m-0 p-0" color="link" onClick={() => this.toggleCustom(1)}>
                       Toggle item 2
-                    </Button>
-                    <Collapse isOpen={this.state.custom[1]} data-parent="#exampleAccordion" id="exampleAccordion2">
+                    </CButton>
+                    <CCollapse custom show={this.state.custom[1]}>
                       <p className="mb-3">
                         Donec at ipsum dignissim, rutrum turpis scelerisque, tristique lectus. Pellentesque habitant morbi tristique senectus et netus et
                         malesuada fames ac turpis egestas. Vivamus nec dui turpis. Orci varius natoque penatibus et magnis dis parturient montes,
                         nascetur ridiculus mus.
                       </p>
-                    </Collapse>
+                    </CCollapse>
                   </div>
                 </div>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+              </CCardBody>
+            </CCard>
+
+            <CCard custom>
+              <CCardHeader>
+                Collapse
+                <small> custom accordion</small>
+              </CCardHeader>
+              <CCardBody>
+                <CButton id="myCollpase" className="m-0 p-0" color="link">
+                  Toggle item
+                </CButton>
+                <CCollapse toggler="myCollpase">
+                  <p className="mb-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium lorem non vestibulum scelerisque. Proin a vestibulum sem, eget
+                    tristique massa. Aliquam lacinia rhoncus nibh quis ornare.
+                  </p>
+                </CCollapse>
+                <CCollapse toggler="myCollpase">
+                  <p className="mb-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium lorem non vestibulum scelerisque. Proin a vestibulum sem, eget
+                    tristique massa. Aliquam lacinia rhoncus nibh quis ornare.
+                  </p>
+                </CCollapse>
+              </CCardBody>
+            </CCard>
+
+          </CCol>
+        </CRow>
       </div>
     );
   }

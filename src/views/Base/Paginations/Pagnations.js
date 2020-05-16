@@ -1,174 +1,280 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { CCard, CCardBody, CCardHeader, CPagination, CPaginationItem, CPaginationLink } from '@coreui/react';
 
 class Paginations extends Component {
 
   render() {
     return (
       <div className="animated fadeIn">
-        <Card>
-          <CardHeader>
-            <i className="fa fa-align-justify"></i><strong>Pagination</strong>
+        <CCard custom>
+          <CCardHeader>
+            Pagination
             <div className="card-header-actions">
-              <a href="https://reactstrap.github.io/components/pagination/" rel="noreferrer noopener" target="_blank" className="card-header-action">
+              <a href="https://coreui.github.io/components/pagination/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                 <small className="text-muted">docs</small>
               </a>
             </div>
-          </CardHeader>
-          <CardBody>
-            <Pagination>
-              <PaginationItem>
-                <PaginationLink previous tag="button" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+          </CCardHeader>
+          <CCardBody>
+            <CPagination onClick={(e, type, n)=>{}} firstButtonHtml='Start' previousButtonHtml='Previous' lastButtonHtml='End' nextButtonHtml='Next' />
+          </CCardBody>
+        </CCard>
+        <CCard custom>
+          <CCardHeader>
+            Pagination
+            <small> with icons</small>
+            <div className="card-header-actions">
+              <a href="https://coreui.github.io/components/pagination/" rel="noreferrer noopener" target="_blank" className="card-header-action">
+                <small className="text-muted">docs</small>
+              </a>
+            </div>
+          </CCardHeader>
+          <CCardBody>
+            <CPagination custom onClick={()=>{}}>
+              <CPaginationItem custom>
+                <CPaginationLink>link</CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   1
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
-                  2
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
-                  3
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
-                  4
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
-                  5
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink next tag="button" />
-              </PaginationItem>
-            </Pagination>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardHeader>
-            <i className="fa fa-align-justify"></i><strong>Pagination</strong>
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem onClick={()=>{}}>
+                2
+              </CPaginationItem>
+              <CPaginationItem>
+                3
+              </CPaginationItem>
+              <CPaginationLink>link</CPaginationLink>
+            </CPagination>
+          </CCardBody>
+        </CCard>
+        <CCard custom>
+          <CCardHeader>
+            Pagination
             <small> disabled and active states</small>
-          </CardHeader>
-          <CardBody>
-            <Pagination>
-              <PaginationItem disabled>
-                <PaginationLink previous tag="button" />
-              </PaginationItem>
-              <PaginationItem active>
-                <PaginationLink tag="button">
+          </CCardHeader>
+          <CCardBody>
+            <CPagination custom onChange={()=>{alert(1)}}>
+              <CPaginationItem disabled>
+                Previous
+              </CPaginationItem>
+              <CPaginationItem>
+                1
+              </CPaginationItem>
+              <CPaginationItem active>
+                2
+              </CPaginationItem>
+              <CPaginationItem>
+                3
+              </CPaginationItem>
+              <CPaginationItem>
+                Next
+              </CPaginationItem>
+            </CPagination>
+            <CPagination custom>
+              <CPaginationItem custom disabled>
+                <CPaginationLink previous tag="span">
+                  Previous
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   1
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom active>
+                <CPaginationLink tag="span">
                   2
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   3
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
-                  4
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
-                  5
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink next tag="button" />
-              </PaginationItem>
-            </Pagination>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardHeader>
-            <i className="fa fa-align-justify"></i><strong>Pagination</strong>
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink next>
+                  Next
+                </CPaginationLink>
+              </CPaginationItem>
+            </CPagination>
+          </CCardBody>
+        </CCard>
+        <CCard custom>
+          <CCardHeader>
+            Pagination
             <small> sizing</small>
-          </CardHeader>
-          <CardBody>
-            <Pagination size="lg">
-              <PaginationItem>
-                <PaginationLink previous tag="button" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+          </CCardHeader>
+          <CCardBody>
+            <CPagination custom size="lg">
+              <CPaginationItem custom disabled>
+                <CPaginationLink previous>
+                  Previous
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   1
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   2
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   3
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem className="d-none d-sm-block">
-                <PaginationLink next tag="button" />
-              </PaginationItem>
-            </Pagination>
-            <Pagination>
-              <PaginationItem>
-                <PaginationLink previous tag="button" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom className="d-none d-sm-block">
+                <CPaginationLink next />
+              </CPaginationItem>
+            </CPagination>
+            <CPagination custom>
+              <CPaginationItem custom disabled>
+                <CPaginationLink previous>
+                  Previous
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   1
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   2
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   3
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink next tag="button" />
-              </PaginationItem>
-            </Pagination>
-            <Pagination size="sm">
-              <PaginationItem>
-                <PaginationLink previous tag="button" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink next />
+              </CPaginationItem>
+            </CPagination>
+            <CPagination custom size="sm">
+              <CPaginationItem custom disabled>
+                <CPaginationLink previous>
+                  Previous
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   1
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   2
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink tag="button">
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
                   3
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink next tag="button" />
-              </PaginationItem>
-            </Pagination>
-          </CardBody>
-        </Card>
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink next />
+              </CPaginationItem>
+            </CPagination>
+          </CCardBody>
+        </CCard>
+        <CCard custom>
+          <CCardHeader>
+            Pagination
+            <small> alignment</small>
+          </CCardHeader>
+          <CCardBody>
+            <CPagination custom listClassName="justify-content-start">
+              <CPaginationItem custom disabled>
+                <CPaginationLink previous>
+                  Previous
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
+                  1
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
+                  2
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
+                  3
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom className="d-none d-sm-block">
+                <CPaginationLink next>
+                  Next
+                </CPaginationLink>
+              </CPaginationItem>
+            </CPagination>
+            <hr/>
+            <CPagination custom listClassName="justify-content-center">
+              <CPaginationItem custom disabled>
+                <CPaginationLink previous>
+                  Previous
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
+                  1
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
+                  2
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
+                  3
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom className="d-none d-sm-block">
+                <CPaginationLink next>
+                  Next
+                </CPaginationLink>
+              </CPaginationItem>
+            </CPagination>
+            <hr/>
+            <CPagination custom listClassName="justify-content-end">
+              <CPaginationItem custom disabled>
+                <CPaginationLink previous>
+                  Previous
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
+                  1
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
+                  2
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom>
+                <CPaginationLink>
+                  3
+                </CPaginationLink>
+              </CPaginationItem>
+              <CPaginationItem custom className="d-none d-sm-block">
+                <CPaginationLink next>
+                  Next
+                </CPaginationLink>
+              </CPaginationItem>
+            </CPagination>
+          </CCardBody>
+        </CCard>
       </div>
     );
   }

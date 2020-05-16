@@ -1,47 +1,47 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
+import { CBreadcrumb, CBreadcrumbItem, CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react';
 
 class Breadcrumbs extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col xs="12">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Breadcrumbs</strong>
+        <CRow>
+          <CCol xs="12">
+            <CCard custom>
+              <CCardHeader>
+                Bootstrap Breadcrumb
                 <div className="card-header-actions">
-                  <a href="https://reactstrap.github.io/components/breadcrumbs/" rel="noreferrer noopener" target="_blank" className="card-header-action">
+                  <a href="https://coreui.github.io/components/breadcrumbs/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                     <small className="text-muted">docs</small>
                   </a>
                 </div>
-              </CardHeader>
-              <CardBody>
-                <Breadcrumb>
-                  <BreadcrumbItem active>Home</BreadcrumbItem>
-                </Breadcrumb>
-                <Breadcrumb>
+              </CCardHeader>
+              <CCardBody>
+                <h6>Router</h6>
+                <CBreadcrumb />
+                <h6>Manual</h6>
+                <CBreadcrumb custom>
                   {/*eslint-disable-next-line*/}
-                  <BreadcrumbItem><a href="#">Home</a></BreadcrumbItem>
-                  <BreadcrumbItem active>Library</BreadcrumbItem>
-                </Breadcrumb>
-                <Breadcrumb>
+                  <CBreadcrumbItem><a href="#">Home</a></CBreadcrumbItem>
+                  <CBreadcrumbItem active>Library</CBreadcrumbItem>
+                </CBreadcrumb>
+                <CBreadcrumb custom>
                   {/*eslint-disable-next-line*/}
-                  <BreadcrumbItem><a href="#">Home</a></BreadcrumbItem>
+                  <CBreadcrumbItem><a href="#">Home</a></CBreadcrumbItem>
                   {/* eslint-disable-next-line*/}
-                  <BreadcrumbItem><a href="#">Library</a></BreadcrumbItem>
-                  <BreadcrumbItem active>Data</BreadcrumbItem>
-                </Breadcrumb>
-                <Breadcrumb tag="nav">
-                  <BreadcrumbItem tag="a" href="#">Home</BreadcrumbItem>
-                  <BreadcrumbItem tag="a" href="#">Library</BreadcrumbItem>
-                  <BreadcrumbItem tag="a" href="#">Data</BreadcrumbItem>
-                  <BreadcrumbItem active tag="span">Bootstrap</BreadcrumbItem>
-                </Breadcrumb>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+                  <CBreadcrumbItem><a href="#">Library</a></CBreadcrumbItem>
+                  <CBreadcrumbItem active>Data</CBreadcrumbItem>
+                </CBreadcrumb>
+                <CBreadcrumb custom tag="nav">
+                  <CBreadcrumbItem tag="a" href="#">Home</CBreadcrumbItem>
+                  <CBreadcrumbItem tag="a" href="#">Library</CBreadcrumbItem>
+                  <CBreadcrumbItem tag="a" href="#">Data</CBreadcrumbItem>
+                  <CBreadcrumbItem active tag="span">Bootstrap</CBreadcrumbItem>
+                </CBreadcrumb>
+              </CCardBody>
+            </CCard>
+          </CCol>
+        </CRow>
       </div>
     );
   }

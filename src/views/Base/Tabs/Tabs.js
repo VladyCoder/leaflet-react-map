@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {Badge, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane} from 'reactstrap';
+import {CBadge, CCol, CNav, CNavItem, CNavLink, CRow, CTabContent, CTabPane} from '@coreui/react';
+import {
+  CIcon
+} from '@coreui/icons-react';
 import classnames from 'classnames';
 
 class Tabs extends Component {
@@ -28,153 +31,263 @@ class Tabs extends Component {
   tabPane() {
     return (
       <>
-        <TabPane tabId="1">
+        <CTabPane tabId="1">
           {`1. ${this.lorem()}`}
-        </TabPane>
-        <TabPane tabId="2">
+        </CTabPane>
+        <CTabPane tabId="2">
           {`2. ${this.lorem()}`}
-        </TabPane>
-        <TabPane tabId="3">
+        </CTabPane>
+        <CTabPane tabId="3">
           {`3. ${this.lorem()}`}
-        </TabPane>
+        </CTabPane>
       </>
     );
   }
 
   render() {
+
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col xs="12" md="6" className="mb-4">
-            <Nav tabs>
-              <NavItem>
-                <NavLink
+        <CRow>
+
+          <CCol xs="12" md="6" className="mb-4">
+          <div className="nav-tabs-boxed">
+            <CNav variant="tabs">
+              <CNavItem custom>
+                <CNavLink
                   active={this.state.activeTab[0] === '1'}
                   onClick={() => { this.toggle(0, '1'); }}
+                  href='#'
                 >
-                  Home
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                  Home with href
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
                   active={this.state.activeTab[0] === '2'}
                   onClick={() => { this.toggle(0, '2'); }}
                 >
                   Profile
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
                   active={this.state.activeTab[0] === '3'}
                   onClick={() => { this.toggle(0, '3'); }}
                 >
                   Messages
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent activeTab={this.state.activeTab[0]}>
+                </CNavLink>
+              </CNavItem>
+            </CNav>
+            <CTabContent activeTab={this.state.activeTab[0]}>
               {this.tabPane()}
-            </TabContent>
-          </Col>
-          <Col xs="12" md="6" className="mb-4">
-            <Nav tabs>
-              <NavItem>
-                <NavLink
+            </CTabContent>
+            </div>
+          </CCol>
+
+          <CCol xs="12" md="6" className="mb-4">
+          <div className="nav-tabs-boxed nav-tabs-boxed-top-right">
+            <CNav variant="tabs">
+              <CNavItem custom>
+                <CNavLink
+                  active={this.state.activeTab[0] === '1'}
+                  onClick={() => { this.toggle(0, '1'); }}
+                >
+                  Home
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
+                  active={this.state.activeTab[0] === '2'}
+                  onClick={() => { this.toggle(0, '2'); }}
+                >
+                  Profile
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
+                  active={this.state.activeTab[0] === '3'}
+                  onClick={() => { this.toggle(0, '3'); }}
+                >
+                  Messages
+                </CNavLink>
+              </CNavItem>
+            </CNav>
+            <CTabContent activeTab={this.state.activeTab[0]}>
+              {this.tabPane()}
+            </CTabContent>
+            </div>
+          </CCol>
+
+          <CCol xs="12" md="6" className="mb-4">
+          <div className="nav-tabs-boxed nav-tabs-boxed-left">
+            <CNav variant="tabs">
+              <CNavItem custom>
+                <CNavLink
+                  active={this.state.activeTab[0] === '1'}
+                  onClick={() => { this.toggle(0, '1'); }}
+                >
+                  Home
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
+                  active={this.state.activeTab[0] === '2'}
+                  onClick={() => { this.toggle(0, '2'); }}
+                >
+                  Profile
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
+                  active={this.state.activeTab[0] === '3'}
+                  onClick={() => { this.toggle(0, '3'); }}
+                >
+                  Messages
+                </CNavLink>
+              </CNavItem>
+            </CNav>
+            <CTabContent activeTab={this.state.activeTab[0]}>
+              {this.tabPane()}
+            </CTabContent>
+            </div>
+          </CCol>
+
+          <CCol xs="12" md="6" className="mb-4">
+          <div className="nav-tabs-boxed nav-tabs-boxed-right">
+            <CNav variant="tabs">
+              <CNavItem custom>
+                <CNavLink
+                  active={this.state.activeTab[0] === '1'}
+                  onClick={() => { this.toggle(0, '1'); }}
+                >
+                  Home
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
+                  active={this.state.activeTab[0] === '2'}
+                  onClick={() => { this.toggle(0, '2'); }}
+                >
+                  Profile
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
+                  active={this.state.activeTab[0] === '3'}
+                  onClick={() => { this.toggle(0, '3'); }}
+                >
+                  Messages
+                </CNavLink>
+              </CNavItem>
+            </CNav>
+            <CTabContent activeTab={this.state.activeTab[0]}>
+              {this.tabPane()}
+            </CTabContent>
+            </div>
+          </CCol>
+
+          <CCol xs="12" md="6" className="mb-4">
+            <CNav variant="tabs">
+              <CNavItem custom>
+                <CNavLink
                   active={this.state.activeTab[1] === '1'}
                   onClick={() => { this.toggle(1, '1'); }}
                 >
-                  <i className="icon-calculator"></i>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                  <CIcon name="cil-calculator" />
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
                   active={this.state.activeTab[1] === '2'}
                   onClick={() => { this.toggle(1, '2'); }}
                 >
-                  <i className="icon-basket-loaded"></i>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                  <CIcon name="cil-basket" />
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
                   active={this.state.activeTab[1] === '3'}
                   onClick={() => { this.toggle(1, '3'); }}
                 >
-                  <i className="icon-pie-chart"></i>
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent activeTab={this.state.activeTab[1]}>
+                  <CIcon name="cil-chart-pie" />
+                </CNavLink>
+              </CNavItem>
+            </CNav>
+            <CTabContent activeTab={this.state.activeTab[1]}>
               {this.tabPane()}
-              </TabContent>
-          </Col>
-          <Col xs="12" md="6" className="mb-4">
-            <Nav tabs>
-              <NavItem>
-                <NavLink
+            </CTabContent>
+          </CCol>
+
+          <CCol xs="12" md="6" className="mb-4">
+            <CNav variant="tabs">
+              <CNavItem custom>
+                <CNavLink
                   active={this.state.activeTab[2] === '1'}
                   onClick={() => { this.toggle(2, '1'); }}
                 >
-                  <i className="icon-calculator"></i> <span className={this.state.activeTab[2] === '1' ? '' : 'd-none'}> Calculator</span>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                  <CIcon name="cil-calculator" /> <span className={this.state.activeTab[2] === '1' ? '' : 'd-none'}> Calculator</span>
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
                   active={this.state.activeTab[2] === '2'}
                   onClick={() => { this.toggle(2, '2'); }}
                 >
-                  <i className="icon-basket-loaded"></i> <span
+                  <CIcon name="cil-basket" /> <span
                   className={this.state.activeTab[2] === '2' ? '' : 'd-none'}> Shopping cart</span>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
                   className={classnames({ active: this.state.activeTab[2] === '3' })}
                   onClick={() => { this.toggle(2,'3'); }}
                 >
-                  <i className="icon-pie-chart"></i> <span className={this.state.activeTab[2] === '3' ? '' : 'd-none'}> Charts</span>
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent activeTab={this.state.activeTab[2]}>
+                  <CIcon name="cil-chart-pie" /> <span className={this.state.activeTab[2] === '3' ? '' : 'd-none'}> Charts</span>
+                </CNavLink>
+              </CNavItem>
+            </CNav>
+            <CTabContent activeTab={this.state.activeTab[2]}>
               {this.tabPane()}
-            </TabContent>
-          </Col>
-          <Col xs="12" md="6" className="mb-4">
-            <Nav tabs>
-              <NavItem>
-                <NavLink
+            </CTabContent>
+          </CCol>
+
+          <CCol xs="12" md="6" className="mb-4">
+            <CNav variant="tabs">
+              <CNavItem custom>
+                <CNavLink
                   active={this.state.activeTab[3] === '1'}
                   onClick={() => { this.toggle(3, '1'); }}
                 >
-                  <i className="icon-calculator"></i>
-                  <span className={this.state.activeTab[3] === '1' ? '' : 'd-none'}> Calc</span>
-                  {'\u00A0'}<Badge color="success">New</Badge>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                  <CIcon name="cil-calculator" />
+                  <span className={this.state.activeTab[3] === '1' ? '' : 'd-none'}> Calculator</span>
+                  {'\u00A0'}<CBadge color="success">New</CBadge>
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
                   active={this.state.activeTab[3] === '2'}
                   onClick={() => { this.toggle(3, '2'); }}
                 >
-                  <i className="icon-basket-loaded"></i>
+                  <CIcon name="cil-basket" />
                   <span className={this.state.activeTab[3] === '2' ? '' : 'd-none'}> Cart</span>
-                  {'\u00A0'}<Badge pill color="danger">29</Badge>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                  {'\u00A0'}<CBadge shape="pill" color="danger">29</CBadge>
+                </CNavLink>
+              </CNavItem>
+              <CNavItem custom>
+                <CNavLink
                   active={this.state.activeTab[3] === '3'}
                   onClick={() => { this.toggle(3, '3'); }} >
-                    <i className="icon-pie-chart"></i>
+                    <CIcon name="cil-chart-pie" />
                     <span className={this.state.activeTab[3] === '3' ? '' : 'd-none'}> Charts</span>
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent activeTab={this.state.activeTab[3]}>
+                </CNavLink>
+              </CNavItem>
+            </CNav>
+            <CTabContent activeTab={this.state.activeTab[3]}>
               {this.tabPane()}
-            </TabContent>
-          </Col>
-        </Row>
+            </CTabContent>
+          </CCol>
+        </CRow>
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import L, { latLng } from 'leaflet';
 import './vendor';
+import {t, setLanguage} from './languages';
 import './leaflet-map.css';
 
 import maps from './maps.js';
@@ -55,10 +56,18 @@ export class LMap {
         if(this.options.elevation) this.addElevation();
         if(this.options.geosearch) this.addGeoSearching();
         if(this.options.routing) this.addRouting();
+
+        if(this.options.language) setLanguage(this.options.language);
+        this.setLanguage("RU");
+        console.log(t('leaflet'));
     }
     
     setView(options){
         this.map.setView(options);
+    }
+
+    setLanguage(ln){
+        setLanguage(ln);
     }
 
     setType(type = MapTypes._TRACKING_){
@@ -214,7 +223,7 @@ export class LMap {
         var _this = this;
         this.routingControl = L.control.custom({
             position: 'topright',
-            content : '<button type="button" class="btn"></button>',
+            content : '<button type="button" class="leaflet-control-routing-icon"></button>',
             classes : 'btn-group-vertical btn-group-sm leaflet-control-routing-btn',
             style   :
             {

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import { CCard, CCardBody, CCardHeader, CCol, CRow, CTable } from '@coreui/react';
+import {
+  CIcon
+} from '@coreui/icons-react';
 
 import usersData from './UsersData'
 
@@ -9,23 +12,23 @@ class User extends Component {
 
     const user = usersData.find( user => user.id.toString() === this.props.match.params.id)
 
-    const userDetails = user ? Object.entries(user) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
+    const userDetails = user ? Object.entries(user) : [['id', (<span><CIcon className="text-muted" name="cui-icon-ban" /> Not found</span>)]]
 
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                <strong><i className="icon-info pr-1"></i>User id: {this.props.match.params.id}</strong>
-              </CardHeader>
-              <CardBody>
-                  <Table responsive striped hover>
+        <CRow>
+          <CCol lg={6}>
+            <CCard custom>
+              <CCardHeader>
+                User id: {this.props.match.params.id}
+              </CCardHeader>
+              <CCardBody>
+                  <CTable custom responsive striped hover>
                     <tbody>
                       {
-                        userDetails.map(([key, value]) => {
+                        userDetails.map(([key, value], index) => {
                           return (
-                            <tr key={key}>
+                            <tr key={index.toString()}>
                               <td>{`${key}:`}</td>
                               <td><strong>{value}</strong></td>
                             </tr>
@@ -33,11 +36,11 @@ class User extends Component {
                         })
                       }
                     </tbody>
-                  </Table>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+                  </CTable>
+              </CCardBody>
+            </CCard>
+          </CCol>
+        </CRow>
       </div>
     )
   }

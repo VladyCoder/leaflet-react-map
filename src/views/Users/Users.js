@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Badge, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import { CBadge, CCard, CCardBody, CCardHeader, CCol, CRow, CTable } from '@coreui/react';
 
 import usersData from './UsersData'
 
@@ -22,7 +22,7 @@ function UserRow(props) {
       <td><Link to={userLink}>{user.name}</Link></td>
       <td>{user.registered}</td>
       <td>{user.role}</td>
-      <td><Link to={userLink}><Badge color={getBadge(user.status)}>{user.status}</Badge></Link></td>
+      <td><Link to={userLink}><CBadge color={getBadge(user.status)}>{user.status}</CBadge></Link></td>
     </tr>
   )
 }
@@ -35,14 +35,15 @@ class Users extends Component {
 
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col xl={6}>
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i> Users <small className="text-muted">example</small>
-              </CardHeader>
-              <CardBody>
-                <Table responsive hover>
+        <CRow>
+          <CCol xl={6}>
+            <CCard custom>
+              <CCardHeader>
+                Users
+                <small className="text-muted"> example</small>
+              </CCardHeader>
+              <CCardBody>
+                <CTable custom responsive hover>
                   <thead>
                     <tr>
                       <th scope="col">id</th>
@@ -57,11 +58,11 @@ class Users extends Component {
                       <UserRow key={index} user={user}/>
                     )}
                   </tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+                </CTable>
+              </CCardBody>
+            </CCard>
+          </CCol>
+        </CRow>
       </div>
     )
   }

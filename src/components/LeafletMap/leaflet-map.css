@@ -1,13 +1,19 @@
-.leaflet-control-routing-btn .btn{
+.leaflet-control-routing-btn .leaflet-control-routing-icon{
+    border-radius: 4px;
+    width: 26px;
+    height: 26px;
+    border: none;
+    background-color: white;
     line-height: 1;
 }
-.leaflet-control-routing-btn .btn::before{
+.leaflet-control-routing-btn .leaflet-control-routing-icon::before{
+
     content: "\21AF";
     font-weight: bold;
     font-size: 1rem;
     line-height: 1rem;
 }
 
-.leaflet-control-routing-btn.open .btn::before{
+.leaflet-control-routing-btn.open .leaflet-control-routing-icon::before{
     content: "\0058";
 }

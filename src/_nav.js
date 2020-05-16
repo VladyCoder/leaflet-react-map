@@ -3,17 +3,17 @@ export default {
     {
       name: 'Dashboard',
       url: '/dashboard',
-      icon: 'icon-speedometer',
+      icon: 'cil-speedometer',
       badge: {
         variant: 'info',
         text: 'NEW',
-      },
+      }
     },
     {
       title: true,
       name: 'Theme',
       wrapper: {            // optional wrapper object
-        element: '',        // required valid HTML5 element tag
+        element: 'div',        // required valid HTML5 element tag
         attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
       },
       class: ''             // optional class names space delimited list for title item ex: "text-center"
@@ -21,12 +21,12 @@ export default {
     {
       name: 'Colors',
       url: '/theme/colors',
-      icon: 'icon-drop',
+      icon: 'cil-drop',
     },
     {
       name: 'Typography',
       url: '/theme/typography',
-      icon: 'icon-pencil',
+      icon: 'cil-pencil',
     },
     {
       title: true,
@@ -39,198 +39,277 @@ export default {
     {
       name: 'Base',
       url: '/base',
-      icon: 'icon-puzzle',
+      icon: 'cil-puzzle',
       children: [
         {
-          name: 'Breadcrumbs',
+          name: 'Breadcrumb',
           url: '/base/breadcrumbs',
-          icon: 'icon-puzzle',
         },
         {
           name: 'Cards',
           url: '/base/cards',
-          icon: 'icon-puzzle',
         },
         {
-          name: 'Carousels',
+          name: 'Carousel',
           url: '/base/carousels',
-          icon: 'icon-puzzle',
         },
         {
-          name: 'Collapses',
+          name: 'Collapse',
           url: '/base/collapses',
-          icon: 'icon-puzzle',
         },
+        /*
         {
           name: 'Dropdowns',
           url: '/base/dropdowns',
-          icon: 'icon-puzzle',
-        },
+        },*/
         {
-          name: 'Forms',
-          url: '/base/forms',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Jumbotrons',
+          name: 'Jumbotron',
           url: '/base/jumbotrons',
-          icon: 'icon-puzzle',
         },
         {
-          name: 'List groups',
+          name: 'List group',
           url: '/base/list-groups',
-          icon: 'icon-puzzle',
         },
         {
           name: 'Navs',
           url: '/base/navs',
-          icon: 'icon-puzzle',
         },
         {
-          name: 'Paginations',
+          name: 'Navbars',
+          url: '/base/navbars',
+        },
+        {
+          name: 'Pagination',
           url: '/base/paginations',
-          icon: 'icon-puzzle',
         },
         {
           name: 'Popovers',
           url: '/base/popovers',
-          icon: 'icon-puzzle',
         },
         {
-          name: 'Progress Bar',
+          name: 'Progress',
           url: '/base/progress-bar',
-          icon: 'icon-puzzle',
         },
         {
           name: 'Switches',
           url: '/base/switches',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Tables',
-          url: '/base/tables',
-          icon: 'icon-puzzle',
         },
         {
           name: 'Tabs',
           url: '/base/tabs',
-          icon: 'icon-puzzle',
         },
         {
           name: 'Tooltips',
           url: '/base/tooltips',
-          icon: 'icon-puzzle',
         },
       ],
     },
     {
-      name: 'Maps',
-      url: '/maps',
-      icon: 'icon-location-pin',
+      name: 'LMaps',
+      url: '/leafletmaps',
+      icon: 'cil-leaf',
       children: [
         {
           name: 'MapTypes',
-          url: '/maps/maptypes',
+          url: '/leafletmaps/maptypes',
         },
         {
           name: 'MapFunctions',
-          url: '/maps/mapfunctions',
+          url: '/leafletmaps/mapfunctions',
         },
       ]
     },
     {
       name: 'Buttons',
       url: '/buttons',
-      icon: 'icon-cursor',
+      icon: 'cil-cursor',
       children: [
         {
           name: 'Buttons',
           url: '/buttons/buttons',
-          icon: 'icon-cursor',
         },
         {
-          name: 'Button dropdowns',
-          url: '/buttons/button-dropdowns',
-          icon: 'icon-cursor',
-        },
-        {
-          name: 'Button groups',
-          url: '/buttons/button-groups',
-          icon: 'icon-cursor',
-        },
-        {
-          name: 'Brand Buttons',
+          name: 'Brand buttons',
           url: '/buttons/brand-buttons',
-          icon: 'icon-cursor',
         },
+        {
+          name: 'Buttons groups',
+          url: '/buttons/button-groups',
+        },
+        {
+          name: 'Dropdowns',
+          url: '/buttons/button-dropdowns',
+        }
       ],
     },
     {
       name: 'Charts',
       url: '/charts',
-      icon: 'icon-pie-chart',
+      icon: 'cil-chart-pie'
+    },
+    {
+      name: 'Editors',
+      url: '/editors',
+      icon: 'cil-code',
+      children: [
+        {
+          name: 'Code Editors',
+          url: '/editors/code-editors',
+          badge: {
+            variant: 'danger',
+            text: 'PRO',
+          },
+        },
+        {
+          name: 'Rich Text Editor',
+          url: '/editors/text-editors',
+          badge: {
+            variant: 'danger',
+            text: 'PRO',
+          },
+        }
+      ]
+    },
+    {
+      name: 'Forms',
+      url: '/forms',
+      icon: 'cil-notes',
+      children: [
+        {
+          name: 'Basic Forms',
+          url: '/forms/basic-forms',
+        },
+        {
+          name: 'Advanced Forms',
+          url: '/forms/advanced-forms',
+          badge: {
+            variant: 'danger',
+            text: 'PRO'
+          }
+        },
+        {
+          name: 'Validation',
+          url: '/forms/validation-forms',
+          badge: {
+            variant: 'danger',
+            text: 'PRO'
+          }
+        }
+      ]
+    },
+    {
+      name: 'Google Maps',
+      url: '/google-maps',
+      icon: 'cil-map',
+      badge: {
+        variant: 'danger',
+        text: 'PRO'
+      }
     },
     {
       name: 'Icons',
       url: '/icons',
-      icon: 'icon-star',
+      icon: 'cil-star',
       children: [
         {
-          name: 'CoreUI Icons',
+          name: 'CoreUI Free',
           url: '/icons/coreui-icons',
-          icon: 'icon-star',
           badge: {
-            variant: 'info',
+            variant: 'success',
             text: 'NEW',
           },
         },
         {
-          name: 'Flags',
+          name: 'CoreUI Flags',
           url: '/icons/flags',
-          icon: 'icon-star',
         },
         {
-          name: 'Font Awesome',
-          url: '/icons/font-awesome',
-          icon: 'icon-star',
-          badge: {
-            variant: 'secondary',
-            text: '4.7',
-          },
-        },
-        {
-          name: 'Simple Line Icons',
-          url: '/icons/simple-line-icons',
-          icon: 'icon-star',
+          name: 'CoreUI Brands',
+          url: '/icons/brands',
         },
       ],
     },
     {
       name: 'Notifications',
       url: '/notifications',
-      icon: 'icon-bell',
+      icon: 'cil-bell',
       children: [
         {
           name: 'Alerts',
           url: '/notifications/alerts',
-          icon: 'icon-bell',
         },
         {
           name: 'Badges',
           url: '/notifications/badges',
-          icon: 'icon-bell',
         },
         {
-          name: 'Modals',
+          name: 'Modal',
           url: '/notifications/modals',
-          icon: 'icon-bell',
         },
-      ],
+        {
+          name: 'Toaster',
+          url: '/notifications/toastr',
+          badge: {
+            variant: 'danger',
+            text: 'PRO'
+          }
+        }
+      ]
+    },
+    {
+      name: 'Plugins',
+      url: '/plugins',
+      icon: 'cil-bolt',
+      children: [
+        {
+          name: 'Calendar',
+          url: '/plugins/calendar',
+          badge: {
+            variant: 'danger',
+            text: 'PRO'
+          }
+        },
+        {
+          name: 'Draggable',
+          url: '/plugins/draggable',
+          badge: {
+            variant: 'danger',
+            text: 'PRO'
+          }
+        },
+        {
+          name: 'Spinners',
+          url: '/plugins/spinners',
+          badge: {
+            variant: 'danger',
+            text: 'PRO'
+          }
+        }
+      ]
+        },
+    {
+      name: 'Tables',
+      url: '/tables',
+      icon: 'cil-columns',
+      children: [
+        {
+          name: 'Standard Tables',
+          url: '/tables/tables',
+        },
+        {
+          name: 'DataTables',
+          url: '/tables/data-table',
+          badge: {
+            variant: 'danger',
+            text: 'PRO'
+          }
+        }
+      ]
     },
     {
       name: 'Widgets',
       url: '/widgets',
-      icon: 'icon-calculator',
+      icon: 'cil-calculator',
       badge: {
         variant: 'info',
         text: 'NEW',
@@ -246,50 +325,124 @@ export default {
     {
       name: 'Pages',
       url: '/pages',
-      icon: 'icon-star',
+      icon: 'cil-star',
       children: [
         {
           name: 'Login',
           url: '/login',
-          icon: 'icon-star',
         },
         {
           name: 'Register',
           url: '/register',
-          icon: 'icon-star',
         },
         {
           name: 'Error 404',
           url: '/404',
-          icon: 'icon-star',
         },
         {
           name: 'Error 500',
           url: '/500',
-          icon: 'icon-star',
         },
       ],
     },
     {
       name: 'Disabled',
       url: '/dashboard',
-      icon: 'icon-ban',
+      icon: 'cil-ban',
+      badge: {
+        variant: 'secondary',
+        text: 'NEW',
+      },
       attributes: { disabled: true },
     },
-    // {
-    //   name: 'Download CoreUI',
-    //   url: 'https://coreui.io/react/',
-    //   icon: 'icon-cloud-download',
-    //   class: 'mt-auto',
-    //   variant: 'success',
-    //   attributes: { target: '_blank', rel: "noopener" },
-    // },
-    // {
-    //   name: 'Try CoreUI PRO',
-    //   url: 'https://coreui.io/pro/react/',
-    //   icon: 'icon-layers',
-    //   variant: 'danger',
-    //   attributes: { target: '_blank', rel: "noopener" },
-    // },
-  ],
+    {
+      name: 'Apps',
+      url: '/apps',
+      icon: 'cil-layers',
+      children: [
+        {
+          name: 'Invoicing',
+          url: '/apps/invoicing',
+          icon: 'cil-spreadsheet',
+          children: [
+            {
+              name: 'Invoice',
+              url: '/apps/invoicing/invoice',
+              badge: {
+                variant: 'danger',
+                text: 'PRO'
+              }
+            }
+          ]
+        },
+        {
+          name: 'Email',
+          url: '/apps/email',
+          icon: 'cil-envelope-open',
+          children: [
+            {
+              name: 'Inbox',
+              url: '/apps/email/inbox',
+              badge: {
+                variant: 'danger',
+                text: 'PRO',
+              },
+            },
+            {
+              name: 'Message',
+              url: '/apps/email/message',
+              badge: {
+                variant: 'danger',
+                text: 'PRO',
+              },
+            },
+            {
+              name: 'Compose',
+              url: '/apps/email/compose',
+              badge: {
+                variant: 'danger',
+                text: 'PRO',
+              },
+            },
+          ],
+        },
+      ]
+    },
+    {
+      divider: true,
+      class: 'm-2'
+    },
+    {
+      title: true,
+      name: 'Labels'
+    },
+    {
+      name: 'Label danger',
+      url: '',
+      icon: 'cil-bookmark',
+      label: {
+        variant: 'danger'
+      },
+    },
+    {
+      name: 'Label info',
+      url: '',
+      icon: 'cil-bookmark',
+      label: {
+        variant: 'info'
+      }
+    },
+    {
+      name: 'Label warning',
+      url: '',
+      icon: 'cil-bookmark',
+      label: {
+        variant: 'warning'
+      }
+    },
+    {
+      divider: true,
+      class: 'm-2'
+    }
+  ]
 };
