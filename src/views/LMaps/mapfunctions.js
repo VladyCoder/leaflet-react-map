@@ -15,7 +15,7 @@ export default class MapFunctions extends React.Component{
             elevation: true,
             geosearch: true,
             routing: true,
-            language: 'ES'
+            language: 'EN'
         });
 
         this.positionMap.addTileLayers([ '_OPENSTREET_', '_OPENTOPO_', '_AERIAL_', '_TERRAIN_', '_TRAFFIC_' ],{
@@ -24,6 +24,7 @@ export default class MapFunctions extends React.Component{
             maxNativeZoom: 17,
         });
         
+        ////********* function for map *///////////
         this.positionMap.addElements(data.map_elem);
 
         var _allEl = this.positionMap.getAllElements();
@@ -45,7 +46,7 @@ export default class MapFunctions extends React.Component{
         var _zone = this.positionMap.getZoneByName('Zone');
         console.log('zone', _zone);
 
-
+        ///////******* functions for Element *****////////
         var curStatus = _oneEl.getStatus();
         console.log('element status', curStatus);
 

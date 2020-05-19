@@ -18,7 +18,7 @@ class LElement {
         this._trackStatus = false;
         this._updateTrack();
 
-        if(this._marker) this._marker.remove();
+        if(this._marker) this._removeFromMap();
         this._marker = null;
         this._marker = this._createMarker();
 
@@ -228,7 +228,11 @@ class LElement {
     }
 
     _removeFromMap(){
-        this._marker.remove();
+        let pOptions = this._parent.options;
+        if(pOptions.clustering) this._parent.clusterGroup.removeLayer(this._marker);
+        else this._marker.remove();
+
+        this.hideTrack();
     }
 
     on(event, callback, target){
