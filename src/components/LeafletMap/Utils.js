@@ -26,13 +26,48 @@ export function getDirections(data, callback){
     let profiles = ['driving-traffic', 'driving', 'walking', 'cycling'];
     var profile = data.profile && profiles.includes(data.profile) ? data.profile : 'driving';
     
-    var start = data.coordinates.start;
-    var end = data.coordinates.end;
-    if(!start || !end) return;
+    var coors = '';
+    if(data.coordinates && data.coordinates.length){
+        for(var i = 0; i < data.coordinates.length; i++){
+            let point = data.coordinates[i];
+            if(coors.length) coors += ';';
+            coors += point.lng + ',' + point.lat;
+        }
+    }
 
+    let url = 'https://api.mapbox.com/directions/v5/mapbox/' + profile + '/' + coors;
+    url += '?geometries=geojson&overview=full&alternatives=true&steps=true'
+    url += '&access_token=' + mapbox_token;
 
-    let url = 'https://api.mapbox.com/directions/v5/mapbox/' + profile + '/' + start.lat + ',' + start.lng + ';' + end.lat + ',' + end.lng;
-    url += '?overview=false&alternatives=true&steps=true&access_token=' + mapbox_token;
+    var HttpRequest = new XMLHttpRequest();
+    HttpRequest.onreadystatechange = function() { 
+        if (HttpRequest.readyState == 4 && HttpRequest.status == 200)
+            callback(HttpRequest.responseText);
+    }
+
+    HttpRequest.open( "GET", url, true );            
+    HttpRequest.send( null );
+}
+
+export function getMatchs(data, callback){
+    if(!data) return;
+    if(!data.coordinates) return;
+
+    let profiles = ['driving-traffic', 'driving', 'walking', 'cycling'];
+    var profile = data.profile && profiles.includes(data.profile) ? data.profile : 'driving';
+    
+    var coors = '';
+    if(data.coordinates && data.coordinates.length){
+        for(var i = 0; i < data.coordinates.length; i++){
+            let point = data.coordinates[i];
+            if(coors.length) coors += ';';
+            coors += point.lng + ',' + point.lat;
+        }
+    }
+
+    let url = 'https://api.mapbox.com/matching/v5/mapbox/' + profile + '/' + coors;
+    url += '?overview=full&alternatives=true&steps=true'
+    url += '&access_token=' + mapbox_token;
 
     var HttpRequest = new XMLHttpRequest();
     HttpRequest.onreadystatechange = function() { 

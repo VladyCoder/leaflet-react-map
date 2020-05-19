@@ -1,6 +1,7 @@
 import L from 'leaflet';
-import { streetView, fontAwesomeIcon } from './Utils';
+import { streetView, fontAwesomeIcon, getDirections } from './Utils';
 import {t} from './languages';
+import {direction} from './demo-direction';
 
 class LElement {
     constructor(data, parent){
@@ -122,15 +123,53 @@ class LElement {
         }
 
         if(this._data.data.length) {
+            console.log(this._data.name)
+            var _this = this;
             let _lns = [];
             for(var i = 0; i < this._data.data.length; i++){
                 let _ln = this._data.data[i].cord;
-                _lns.push(_ln.split(','));
+                _ln = _ln.split(',');
+                _lns.push({lat: _ln[0], lng: _ln[1]});
             }
-            this._track = L.polyline(_lns);
 
-            if(this._trackStatus) this._track.addTo(this._parent.map);
+            getDirections({ coordinates: _lns}, function(res){
+                var json = JSON.parse(res);
+                if(json.code != "Ok") return;
+                _this.drawTracks(json);
+            });
+            
         }
+    }
+
+    drawTracks(geoJson){
+        this._geoTracks = geoJson;
+        
+        let coords = this._geoTracks.routes[0].geometry.coordinates;
+        var points = [];
+        for(var i = 0; i< coords.length; i++){
+            var point = coords[i];
+            points.push([point[1], point[0]]);
+        }
+        // var color = "#" + Math.floor(Math.random()*16777215).toString(16);
+        this._track = L.polyline(points, {color: this.getColor()});
+        if(this._trackStatus) this._track.addTo(this._parent.map);
+
+
+        // let legs = this._geoTracks.routes[0].legs;
+        // for(var i=0; i< legs.length; i++){
+        //     let steps = legs[i].steps;
+        //     var points = [];            
+        //     for(var j = 0; j < steps.length; j++){
+        //         let intersec = steps[j].intersections;
+        //         for(var k = 0; k < intersec.length; k++){
+        //             var point = intersec[k].location;
+        //             points.push([point[1], point[0]]);
+        //         }
+        //     }
+        //     console.log(points);
+        //     var color = "#" + Math.floor(Math.random()*16777215).toString(16);
+        //     var _track = L.polyline(points, {color: color}).addTo(this._parent.map);
+        // }
     }
 
     getProperties(){

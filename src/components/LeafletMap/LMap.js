@@ -7,7 +7,6 @@ import {t, setLanguage} from './languages';
 import maps from './maps.js';
 import lmapSidebar from './sidebar';
 import createElement from './LElement';
-import { getDirections } from './Utils';
 
 // import {geojson} from './example_data';
 // import { demoTracks, blueMountain } from './demo-tracks';
@@ -185,7 +184,8 @@ export class LMap {
     getAllZones(){
         return this.zones;
     }
-    
+    // ___________________________________________________________
+
     addPrintControl(){
         L.easyPrint({
             filename: 'map',
