@@ -34,3 +34,4 @@ import './LPlayback/LeafletPlayback';
 import './LPlayback/playback_control';
 
 import 'leaflet-spin/leaflet.spin';
+import 'leaflet-easyprint/dist/bundle';

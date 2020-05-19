@@ -35,6 +35,17 @@ export default class MapFunctions extends React.Component{
         // this.positionMap.removeElement("0001");
         // this.positionMap.removeAllElements();
 
+        this.positionMap.drawZone('Zone', [
+            [46.0295228,5.9216256],[47.0295228,5.9216256],[47.0295228,8.9216256],[46.0295228,8.9216256]
+        ]);
+
+        var _zones = this.positionMap.getAllZones();
+        console.log('zones', _zones);
+
+        var _zone = this.positionMap.getZoneByName('Zone');
+        console.log('zone', _zone);
+
+
         var curStatus = _oneEl.getStatus();
         console.log('element status', curStatus);
 

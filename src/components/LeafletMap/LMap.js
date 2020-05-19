@@ -3,6 +3,7 @@ import './leaflet-map.css';
 import './vendor';
 import {t, setLanguage} from './languages';
 
+
 import maps from './maps.js';
 import lmapSidebar from './sidebar';
 import createElement from './LElement';
@@ -38,6 +39,7 @@ export class LMap {
         this.domID = id;
         this.options = options;
         this.mapElements = [];
+        this.zones = [];
         this.status = null;
         this.clusterGroup = L.markerClusterGroup();
 
@@ -69,6 +71,7 @@ export class LMap {
         if(this.options.routing) this.addRouting();
 
         this.addPlayBackControl();
+        this.addPrintControl();
     }
 
     setView(options){
@@ -165,6 +168,35 @@ export class LMap {
         return null;
     }
     // ________________________________________________________
+
+    drawZone(name, coordinates){
+        let zone = L.polygon(coordinates, {name: name}).addTo(this.map);
+        this.zones.push(zone);
+    }
+
+    getZoneByName(name){
+        for( let i = 0; i < this.zones.length; i++){
+            let z = this.zones[i];
+            if( z.options.name === name) return z;
+        }
+        return null;
+    }
+
+    getAllZones(){
+        return this.zones;
+    }
+    
+    addPrintControl(){
+        L.easyPrint({
+            filename: 'map',
+            position: 'topleft',
+            sizeModes: ['Current', 'A4Portrait', 'A4Landscape'],
+            exportOnly: true,
+            hideControlContainer: true
+        }).addTo(this.map);
+    }
+
+    
 
     addElevation(){
         var hg = L.control.heightgraph({
