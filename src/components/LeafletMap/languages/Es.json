@@ -1,3 +1,14 @@
 {
-    "leaflet": "folleto"
+    "leaflet": "folleto",
+
+    "Street View": "vista de calle",
+    "Center map here": "Mapa del centro aquí",
+    "Zoom in": "Acercarse",
+    "Zoom out": "Disminuir el zoom",
+
+    "Distance": "Distancia",
+    "Elevation": "Elevación",
+    "Segment length": "Longitud del segmento",
+    "Type": "Tipo",
+    "Legend": "Leyenda"
 }

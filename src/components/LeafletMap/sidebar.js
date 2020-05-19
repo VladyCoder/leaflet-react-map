@@ -1,3 +1,4 @@
+import './leaflet-sidebar.css';
 
 class LMapSidebar{
     constructor(id){

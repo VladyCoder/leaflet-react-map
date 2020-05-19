@@ -1,3 +1,14 @@
 {
-    "leaflet": "leaflet"
+    "leaflet": "leaflet",
+
+    "Street View": "Street View",
+    "Center map here": "Center map here",
+    "Zoom in": "Zoom in",
+    "Zoom out": "Zoom out",
+
+    "Distance": "Distance",
+    "Elevation": "Elevation",
+    "Segment length": "Segment length",
+    "Type": "Type",
+    "Legend": "Legend"
 }

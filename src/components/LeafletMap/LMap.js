@@ -1,14 +1,15 @@
-import L, { latLng } from 'leaflet';
+import L from 'leaflet';
+import './leaflet-map.css';
 import './vendor';
 import {t, setLanguage} from './languages';
-import './leaflet-map.css';
 
 import maps from './maps.js';
-import { MapMenu, MarkerMenu } from './contextMenus';
 import lmapSidebar from './sidebar';
+import createElement from './LElement';
+import { getDirections } from './Utils';
 
-
-import {geojson} from './example_data';
+// import {geojson} from './example_data';
+// import { demoTracks, blueMountain } from './demo-tracks';
 
 export var MapTypes = {
     _TRACKING_: 'TRACKING_MAP',
@@ -23,12 +24,14 @@ const fullScreenOptions = {
     }
 }
 
+const mapbox_token = "pk.eyJ1IjoiaHVkYWxpbmciLCJhIjoiY2thN2xobWU1MDQ5ZTMwbWt3dHdzZzNiNSJ9.h8fncaoyA-IUhfWcjFZWiw";
+
 export class LMap {
     constructor(id, type = MapTypes._TRACKING_, options, ){
         this.map = L.map(id, {
             ...options,
             ...fullScreenOptions,
-            ...MapMenu
+            ...this._createGlobalMenu()
         });
 
         this.mapType = type;
@@ -42,7 +45,15 @@ export class LMap {
     }
 
     _initialize(){
+        let _this = this;
+        this.map.spin(true);
+        setTimeout(function(){
+            _this.map.spin(false);
+        }, 1000);
+
+        this.setLanguage(this.options.language);
         this.map.on('click', this.mapClickHandler, this);
+
         if(this.options.sidebar){
             this.Sidebar = lmapSidebar(this.domID);
             L.control.sidebar({
@@ -57,23 +68,19 @@ export class LMap {
         if(this.options.geosearch) this.addGeoSearching();
         if(this.options.routing) this.addRouting();
 
-        if(this.options.language) setLanguage(this.options.language);
-        this.setLanguage("RU");
-        console.log(t('leaflet'));
+        this.addPlayBackControl();
     }
-    
+
     setView(options){
         this.map.setView(options);
     }
 
     setLanguage(ln){
-        setLanguage(ln);
+        if(!ln) setLanguage('EN');
+        else setLanguage(ln);
     }
 
-    setType(type = MapTypes._TRACKING_){
-        this.mapType = type;
-    }
-    getType(){
+    getMapType(){
         return this.mapType;
     }
 
@@ -106,23 +113,14 @@ export class LMap {
         }
     }
 
-    drawPath(latlngs, options){
-        if(!latlngs || !latlngs.length) return;
-        L.polyline(latlngs, options).addTo(this.map);
-    }
-
+    //_________________ Element functions ______________
     addElements(elements){
         if(!elements.length) return;
 
-        elements.forEach(el => {
-            let marker = this._createMarker(el);
-            this.mapElements.push({
-                element: el,
-                marker: marker
-            });
-
-            if(this.options.clustering) this.clusterGroup.addLayer(marker);
-            else marker.addTo(this.map);
+        elements.forEach(data => {
+            let _el = createElement(data, this);
+            _el.on('click', this.elementClickHandler, this);
+            this.mapElements.push(_el);
         });
 
         if(this.options.clustering)
@@ -131,87 +129,66 @@ export class LMap {
             this.Sidebar.setData(elements);
     }
 
-    removeElement(id){
-        let _num = this._getElementIndex(id);
-        let _el = this.mapElements.splice(_num, 1);
-
-        if(this.options.clustering) this.clusterGroup.removeLayer(_el.marker);
-        else this.map.removeLayer(_el.marker);
-
-    }
-
-    getAllElements(){
-        var _els = [];
-        this.mapElements.forEach( el => {
-            _els.push(el.element);
-        })
-
-        return _els;
-    }
-
     getElementByID(id){
-        let _num = this._getElementIndex(id);
-        
-        if(_num > -1) return this.mapElements[_num];
+        for( let i = 0; i < this.mapElements.length; i++){
+            let el = this.mapElements[i];
+            if( el._data.id === id) return el;
+        }
         return null;
     }
 
-    _createMarker(el){
-        let _this = this;
-        let _icon = el.icon;
-        let _latlng = el.cord.split(',');
-
-        let marker = L.marker(_latlng, {
-            name: el.name,
-            icon: this._getFontIcon(_icon.icon, _icon.color),
-            ...MarkerMenu(el.name)
-        });
-
-        marker.bindPopup("<b>"+el.name+"</b><br>"+el.cord).openPopup();
-        marker.on('click', this.markerClickHandler, this);
-
-        return marker;
+    getAllElements(){
+        return this.mapElements;
     }
 
-    _getElementIndex(id){
+    removeElement(id){
+        let _el = this._popElement(id);
+        _el._removeFromMap();
+        _el = null;
+    }
+
+    removeAllElements(){
         for( let i = 0; i < this.mapElements.length; i++){
             let el = this.mapElements[i];
-            if( el.element.id === id) return i;
+            el._removeFromMap();
+            el = null;
         }
-        return -1;
+
+        this.mapElements = [];
     }
 
-    _getFontIcon(name, color, size = 'md'){
-        var _html = '<i class="' + name;
-        if(size == 'sm') _html += ' fa-1x"';
-        else if(size == 'lg') _html += ' fa-3x"';
-        else _html += ' fa-2x"';
-
-        _html += ' style="position: absolute; bottom: 0; left: -50%; color: ' + (color || 'black') + '"></i>';
-
-        return L.divIcon({
-            html: _html,
-            className: 'fontAwesomeIcon'
-        });
+    _popElement(id){
+        for( let i = 0; i < this.mapElements.length; i++){
+            let el = this.mapElements[i];
+            if( el._data.id === id) return this.mapElements.splice(i, 1);
+        }
+        return null;
     }
+    // ________________________________________________________
 
     addElevation(){
         var hg = L.control.heightgraph({
             position: 'bottomright',
             width: 800,
             height: 280,
-            expand: false
+            expand: false,
+            translation: {
+                distance: t("Distance"),
+                elevation: t("Elevation"),
+                segment_length: t("Segment length"),
+                type: t("Type"),
+                legend: t("Legend")
+            }
         });
         hg.addTo(this.map);
-        hg.addData(geojson);
-        L.geoJson(geojson).addTo(this.map);
-        console.log(hg);
+        // hg.addData(geojson);
+        // L.geoJson(geojson).addTo(this.map);
     }
 
     addGeoSearching(){
         L.Control.geocoder({
             position: 'topleft',
-            geocoder: L.Control.Geocoder.mapbox('pk.eyJ1IjoiaHVkYWxpbmciLCJhIjoiY2thN2xobWU1MDQ5ZTMwbWt3dHdzZzNiNSJ9.h8fncaoyA-IUhfWcjFZWiw', 
+            geocoder: L.Control.Geocoder.mapbox(mapbox_token, 
                 {
                     serviceUrl: "https://api.mapbox.com/geocoding/v5/mapbox.places/"
                 }
@@ -248,14 +225,13 @@ export class LMap {
         }).addTo(this.map);
         
         this.routingControlPan = L.Routing.control({
-            router: L.Routing.mapbox('pk.eyJ1IjoiaHVkYWxpbmciLCJhIjoiY2thN2xobWU1MDQ5ZTMwbWt3dHdzZzNiNSJ9.h8fncaoyA-IUhfWcjFZWiw'),
-            geocoder: L.Control.Geocoder.mapbox('pk.eyJ1IjoiaHVkYWxpbmciLCJhIjoiY2thN2xobWU1MDQ5ZTMwbWt3dHdzZzNiNSJ9.h8fncaoyA-IUhfWcjFZWiw', 
+            router: L.Routing.mapbox(mapbox_token),
+            geocoder: L.Control.Geocoder.mapbox(mapbox_token, 
                 {
                     serviceUrl: "https://api.mapbox.com/geocoding/v5/mapbox.places/"
                 }
             )
         });
-        console.log(this.routingControlPan);
     }
 
     enableRoutingContainer(){
@@ -267,11 +243,40 @@ export class LMap {
         this.routingControlPan.remove();
     }
 
+    addPlayBackControl(){
+        // var playbackOptions = {        
+        //     layer: {
+        //         pointToLayer : function(featureData, latlng){
+        //             var result = {};
+                    
+        //             if (featureData && featureData.properties && featureData.properties.path_options){
+        //                 result = featureData.properties.path_options;
+        //             }
+                    
+        //             if (!result.radius){
+        //                 result.radius = 5;
+        //             }
+                    
+        //             return new L.CircleMarker(latlng, result);
+        //         }
+        //     }
+        // };
+
+        // this.playback = new L.Playback(this.map, demoTracks, null, playbackOptions);
+
+        // var control = new L.Playback.Control(this.playback);
+        // control.addTo(this.map);
+
+        // this.playback.addData(blueMountain);
+        
+        // this.map.spin(true);
+    }
+
     mapClickHandler(e){
         console.log('map', e);
     }
 
-    markerClickHandler(e){
+    elementClickHandler(e){
         var latlng = e.target._latlng;
         var name = e.target.options.name;
         this._addRoutingPoint(latlng, name);
@@ -300,5 +305,76 @@ export class LMap {
         curPoints.push(L.Routing.waypoint(latlng, name));
         this.routingControlPan.setWaypoints(curPoints);
 
+    }
+
+    _showStreetView(e){
+        var latlng = e.relatedTarget._latlng;
+        window.open("https://www.google.com/maps/@?api=1&map_action=pano&viewpoint="+latlng.lat + "," +latlng.lng, '_blank');
+    }
+
+    showAllTracks(){
+        for( let i = 0; i < this.mapElements.length; i++){
+            let el = this.mapElements[i];
+            el.showTrack();
+        }
+    }
+
+    hideAllTracks(){
+        for( let i = 0; i < this.mapElements.length; i++){
+            let el = this.mapElements[i];
+            el.hideTrack();
+        }
+    }
+
+    refreshMap(){
+        let _this = this;
+        this.map.spin(true);
+        setTimeout(function(){
+            _this.map.spin(false);
+        }, 1000);
+
+        for( let i = 0; i < this.mapElements.length; i++){
+            let el = this.mapElements[i];
+            el.refreshElement();
+        }
+    }
+
+    _createGlobalMenu(){
+        let _this = this;
+        return {
+            contextmenu: true,
+            contextmenuWidth: 140,
+            contextmenuItems: [{
+                text: t('Show all tracks'),
+                callback: function(e){
+                    _this.showAllTracks();
+                } 
+            },{
+                text: t('Hide all tracks'),
+                callback: function(e){
+                    _this.hideAllTracks();
+                } 
+            },{
+                text: t('Refresh Map'),
+                callback: function(e){
+                    _this.refreshMap();
+                }
+            }, '-',{
+                text: t('Remove all elements'),
+                callback: function(){
+                    _this.removeAllElements();
+                }
+            }, '-', {
+                text: t('Zoom in'),
+                callback: function(e){
+                    _this.map.zoomIn();
+                }
+            }, {
+                text: t('Zoom out'),
+                callback: function(e){
+                    _this.map.zoomOut();
+                }
+            }]
+        };
     }
 }

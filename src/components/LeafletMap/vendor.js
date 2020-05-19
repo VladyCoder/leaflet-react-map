@@ -18,7 +18,6 @@ import 'leaflet.fullscreen/Control.FullScreen';
 import 'leaflet.fullscreen/Control.FullScreen.css';
 
 import 'leaflet-sidebar-v2/js/leaflet-sidebar';
-import './leaflet-sidebar.css';
 
 import 'leaflet-gpx/gpx';
 
@@ -30,3 +29,8 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 
 import 'leaflet-control-geocoder/dist/Control.Geocoder';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
+
+import './LPlayback/LeafletPlayback';
+import './LPlayback/playback_control';
+
+import 'leaflet-spin/leaflet.spin';
