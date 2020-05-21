@@ -9,7 +9,7 @@ import lmapSidebar from './sidebar';
 import createElement from './LElement';
 
 // import {geojson} from './example_data';
-// import { demoTracks, blueMountain } from './demo-tracks';
+import { demoTracks, blueMountain } from './demo-tracks';
 
 export var MapTypes = {
     _TRACKING_: 'TRACKING_MAP',
@@ -46,12 +46,6 @@ export class LMap {
     }
 
     _initialize(){
-        let _this = this;
-        this.map.spin(true);
-        setTimeout(function(){
-            _this.map.spin(false);
-        }, 1000);
-
         this.setLanguage(this.options.language);
         this.map.on('click', this.mapClickHandler, this);
 
@@ -106,6 +100,14 @@ export class LMap {
 
             if(!Object.keys(baseMaps).length) _layer.addTo(this.map);
             baseMaps[_map.name] = _layer;
+
+            let _this = this;
+            _layer.on('loading', function(e){
+                _this.map.spin(true);
+            });
+            _layer.on('load', function(e){
+                _this.map.spin(false);
+            });
         });
         
         L.control.layers(baseMaps).addTo(this.map);
@@ -196,8 +198,6 @@ export class LMap {
         }).addTo(this.map);
     }
 
-    
-
     addElevation(){
         var hg = L.control.heightgraph({
             position: 'bottomright',
@@ -276,32 +276,30 @@ export class LMap {
     }
 
     addPlayBackControl(){
-        // var playbackOptions = {        
-        //     layer: {
-        //         pointToLayer : function(featureData, latlng){
-        //             var result = {};
+        var playbackOptions = {        
+            // layer: {
+            //     pointToLayer : function(featureData, latlng){
+            //         var result = {};
                     
-        //             if (featureData && featureData.properties && featureData.properties.path_options){
-        //                 result = featureData.properties.path_options;
-        //             }
+            //         if (featureData && featureData.properties && featureData.properties.path_options){
+            //             result = featureData.properties.path_options;
+            //         }
                     
-        //             if (!result.radius){
-        //                 result.radius = 5;
-        //             }
+            //         if (!result.radius){
+            //             result.radius = 1;
+            //         }
                     
-        //             return new L.CircleMarker(latlng, result);
-        //         }
-        //     }
-        // };
+            //         return new L.CircleMarker(latlng, result);
+            //     }
+            // }
+        };
 
-        // this.playback = new L.Playback(this.map, demoTracks, null, playbackOptions);
+        this.playback = new L.Playback(this.map, [], null, playbackOptions);
 
-        // var control = new L.Playback.Control(this.playback);
-        // control.addTo(this.map);
+        var control = new L.Playback.Control(this.playback);
+        control.addTo(this.map);
 
         // this.playback.addData(blueMountain);
-        
-        // this.map.spin(true);
     }
 
     mapClickHandler(e){
@@ -359,16 +357,14 @@ export class LMap {
     }
 
     refreshMap(){
-        let _this = this;
-        this.map.spin(true);
-        setTimeout(function(){
-            _this.map.spin(false);
-        }, 1000);
-
         for( let i = 0; i < this.mapElements.length; i++){
             let el = this.mapElements[i];
             el.refreshElement();
         }
+    }
+
+    addPlayBackTrack(geojson){
+        this.playback.addData(geojson);
     }
 
     _createGlobalMenu(){

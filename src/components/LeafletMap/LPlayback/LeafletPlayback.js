@@ -772,7 +772,7 @@ L.Playback.TracksLayer = L.Class.extend({
         this.layer = new L.GeoJSON(null, layer_options);
 
         var overlayControl = {
-            'GPS Tracks' : this.layer
+            'Tracks' : this.layer
         };
 
         L.control.layers(null, overlayControl, {
@@ -971,10 +971,13 @@ L.Playback = L.Playback.Clock.extend({
         initialize : function (map, geoJSON, callback, options) {
             L.setOptions(this, options);
 
+            this.options.tracksLayer = false;
+            this.updateCallbacks = [];
+
             this._map = map;
             this._trackController = new L.Playback.TrackController(map, null, this.options);
             L.Playback.Clock.prototype.initialize.call(this, this._trackController, callback, this.options);
-
+            
             if (this.options.tracksLayer) {
                 this._tracksLayer = new L.Playback.TracksLayer(map, options);
             }
@@ -1013,8 +1016,17 @@ L.Playback = L.Playback.Clock.extend({
             this.addData(geoJSON, this.getTime());
 
             this.setCursor(this.getStartTime());
+            this.updateControl();
         },
-
+        addUpdateCallback(fn){
+            this.updateCallbacks.push(fn);
+        },
+        updateControl(){
+            var arry = this.updateCallbacks;
+            for (var i=0, len=arry.length; i<len; i++) {
+              arry[i]();
+            }
+        },
         // bad implementation
         addData : function (geoJSON, ms) {
             // return if data not set
@@ -1041,6 +1053,7 @@ L.Playback = L.Playback.Clock.extend({
             if (this.options.tracksLayer) {
                 this._tracksLayer.addLayer(geoJSON);
             }
+            this.updateControl();
         },
 
         destroy: function() {

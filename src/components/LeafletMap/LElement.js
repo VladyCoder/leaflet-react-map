@@ -89,6 +89,7 @@ class LElement {
     hideTrack(){
         if(!this._track) return;
         this._track.remove();
+        this.originalTrack && this.originalTrack.remove();
         this._trackStatus = false;
     }
 
@@ -132,6 +133,10 @@ class LElement {
                 _lns.push({lat: _ln[0], lng: _ln[1]});
             }
 
+            ////// debuging /////
+            this.originalTrack = L.polyline(_lns);
+            ////////////////////
+
             getDirections({ coordinates: _lns}, function(res){
                 var json = JSON.parse(res);
                 if(json.code != "Ok") return;
@@ -142,9 +147,9 @@ class LElement {
     }
 
     drawTracks(geoJson){
-        this._geoTracks = geoJson;
+        this._geoTracks = geoJson.routes[0];
         
-        let coords = this._geoTracks.routes[0].geometry.coordinates;
+        let coords = this._geoTracks.geometry.coordinates;
         var points = [];
         for(var i = 0; i< coords.length; i++){
             var point = coords[i];
@@ -154,7 +159,25 @@ class LElement {
         this._track = L.polyline(points, {color: this.getColor()});
         if(this._trackStatus) this._track.addTo(this._parent.map);
 
+        var tData = this._data.data;
+        var startTime = tData[0].timestamp;
+        var endTime = tData[tData.length -1].timestamp;
+        var sections =coords.length - 1;
+        if(!sections) return;
+        var division = (endTime - startTime)/(sections - 1);
+        var time = [startTime];
+        var cursor = startTime;
+        for(var i = 0; i < sections; i++){
+            cursor += division;
+            time.push(cursor);
+        }
 
+        this._parent.addPlayBackTrack({
+            ...this._geoTracks,
+            properties:{
+                time: time
+            }
+        });
         // let legs = this._geoTracks.routes[0].legs;
         // for(var i=0; i< legs.length; i++){
         //     let steps = legs[i].steps;
@@ -211,6 +234,10 @@ class LElement {
         return marker;
     }
 
+    showOriginalTrack(){
+        this.originalTrack && this.originalTrack.addTo(this._parent.map);
+    }
+
     _createMarkerContextMenu(){
         let _this = this;
         let _contextItems = [
@@ -225,6 +252,11 @@ class LElement {
                     _this.goto();
                 }
             },'-',{
+                text: t('Show original track'),
+                callback: function(e){
+                    _this.showOriginalTrack();
+                }
+            },{
                 text: t('Show track'),
                 callback: function(e){
                     _this.showTrack();

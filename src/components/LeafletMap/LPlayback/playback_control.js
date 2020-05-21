@@ -1,9 +1,7 @@
 // L.Playback = L.Playback || {};
-// import './jquery-1.11.0';
-// import './bootstrap-timepicker';
+
 import L from 'leaflet';
 import './example_2.css';
-// import Playback from './LeafletPlayback';
 L.Playback.Control = L.Control.extend({
 
   _html: 
@@ -36,14 +34,16 @@ L.Playback.Control = L.Control.extend({
 '        </ul>' +
 '        <ul class="nav pull-right">' +
 '          <li>' +
-'            <div id="time-slider"><a class="time-slider-handle" href="#"></a></div>' +
+'             <input id="time-slider" type="range" min="0" max="5">' +
+// '            <div id="time-slider"><a class="time-slider-handle" href="#"></a></div>' +
 '          </li>' +
 '          <li class="ctrl dropup">' +
 '            <a id="speed-btn" data-toggle="dropdown" href="#"><i class="fa fa-dashboard fa-lg"></i> <span id="speed-icon-val" class="speed">1</span>x</a>' +
 '            <div class="speed-menu dropdown-menu" role="menu" aria-labelledby="speed-btn">' +
-'              <label>Playback<br/>Speed</label>' +
-'              <input id="speed-input" class="span1 speed" type="text" value="1" />' +
-'              <div id="speed-slider"></div>' +
+'              <label>Player<br/>Speed</label>' +
+'              <input id="speed-input" class="span1 speed" type="number" value="1" min="-9" max="9"/>' +
+'               <input id="speed-slider" type="range" min="0" max="5">' +
+// '              <div id="speed-slider"></div>' +
 '            </div>' +
 '          </li>' +
 '        </ul>' +
@@ -54,10 +54,18 @@ L.Playback.Control = L.Control.extend({
 
   initialize: function(playback) {
     this.playback = playback;
-    playback.addCallback(this._clockCallback);
+    let self = this;
+    playback.addCallback(function(ms){
+      self._clockCallback(ms, self);
+    });
+    playback.addUpdateCallback(function(){
+      self._update(self);
+    });
+    // playback.addCallback(this._clockCallback);
   },
  
   onAdd: function(map) {
+    this._map = map;
     var html = this._html;
     
     if(!this.container){
@@ -74,59 +82,63 @@ L.Playback.Control = L.Control.extend({
   },
 
   _setup: function() {
-    // var self = this;
-    // var playback = this.playback;
-    // $('#play-pause').click(function() {
-    //   if (playback.isPlaying() === false) {
-    //     playback.start();
-    //     $('#play-pause-icon').removeClass('fa-play');
-    //     $('#play-pause-icon').addClass('fa-pause');
-    //   } else {
-    //     playback.stop();
-    //     $('#play-pause-icon').removeClass('fa-pause');
-    //     $('#play-pause-icon').addClass('fa-play');
-    //   }
-    // });
+    var self = this;
+    var playback = this.playback;
+    this.el('#play-pause').addEventListener('click', function(e){
+      e.preventDefault();
+      
+      if (playback.isPlaying() === false) {
+        playback.start();
+        self.el('#play-pause-icon').classList.remove('fa-play');
+        self.el('#play-pause-icon').classList.add('fa-pause');
+      } else {
+        playback.stop();
+        self.el('#play-pause-icon').classList.remove('fa-pause');
+        self.el('#play-pause-icon').classList.add('fa-play');
+      }
+    })
 
-    // var startTime = playback.getStartTime();
-    // $('#cursor-date').html(L.Playback.Util.DateStr(startTime));
-    // $('#cursor-time').html(L.Playback.Util.TimeStr(startTime));
+    this.setDropDown(this.el('#speed-btn'));
+    this.setDropDown(this.el('#clock-btn'));
+    
+    var startTime = playback.getStartTime();
+    this.el('#cursor-date').innerHTML = L.Playback.Util.DateStr(startTime);
+    this.el('#cursor-time').innerHTML = L.Playback.Util.TimeStr(startTime);
+    
+    this.timeSlider = this.el('#time-slider');
+    L.DomEvent.disableClickPropagation(this.timeSlider);
+    this.timeSlider.min = playback.getStartTime();
+    this.timeSlider.max = playback.getEndTime();
+    this.timeSlider.step = playback.getTickLen();
+    this.timeSlider.value = playback.getTime();
+    this.timeSlider.addEventListener('input', function(e){
+      console.log(this.value);
+      playback.setCursor(this.value);
+      self.el('#cursor-date').innerHTML = L.Playback.Util.DateStr(Number(this.value));
+      self.el('#cursor-time').innerHTML = L.Playback.Util.TimeStr(Number(this.value));
+    });
+    
+    this.speedSlider = this.el('#speed-slider');
+    L.DomEvent.disableClickPropagation(this.speedSlider);
+    this.speedSlider.min = -9;
+    this.speedSlider.max = 9;
+    this.speedSlider.step = 1;
+    this.speedSlider.value = self._speedToSliderVal(this.playback.getSpeed());
+    this.speedSlider.addEventListener('input', function(e){
+      var speed = Number(this.value);
+      playback.setSpeed(speed);
+      self.el('#speed-btn .speed').innerHTML = speed;
+      self.el('.speed-menu #speed-input').value = speed;
+    });
 
-    // $('#time-slider').slider({
-    //   min: playback.getStartTime(),
-    //   max: playback.getEndTime(),
-    //   step: playback.getTickLen(),
-    //   value: playback.getTime(),
-    //   slide: function( event, ui ) {
-    //     playback.setCursor(ui.value);
-    //     $('#cursor-time').val(ui.value.toString());
-    //     $('#cursor-time-txt').html(new Date(ui.value).toString());
-    //   }
-    // });
-
-    // $('#speed-slider').slider({
-    //   min: -9,
-    //   max: 9,
-    //   step: .1,
-    //   value: self._speedToSliderVal(this.playback.getSpeed()),
-    //   orientation: 'vertical',
-    //   slide: function( event, ui ) {
-    //     var speed = self._sliderValToSpeed(parseFloat(ui.value));
-    //     playback.setSpeed(speed);
-    //     $('.speed').html(speed).val(speed);
-    //   }
-    // });
-
-    // $('#speed-input').on('keyup', function(e) {
-    //   var speed = parseFloat($('#speed-input').val());
-    //   if (!speed) return;
-    //   playback.setSpeed(speed);
-    //   $('#speed-slider').slider('value', speedToSliderVal(speed));
-    //   $('#speed-icon-val').html(speed);
-    //   if (e.keyCode === 13) {
-    //     $('.speed-menu').dropdown('toggle');
-    //   }
-    // });
+    var speedInput = this.el('#speed-input');
+    L.DomEvent.disableClickPropagation(speedInput);
+    speedInput.addEventListener('input', function(e){
+      var speed = this.value;
+      playback.setSpeed(Number(speed));
+      self.el('#speed-btn .speed').innerHTML = speed;
+      self.speedSlider.value = speed;
+    })
 
     // $('#calendar').datepicker({
     //   changeMonth: true,
@@ -164,22 +176,25 @@ L.Playback.Control = L.Control.extend({
     //   playback.setCursor(ts);
     //   $('#time-slider').slider('value', ts);
     // });
-
-    // $('#load-tracks-btn').on('click', function(e) {
-    //   $('#load-tracks-modal').modal();
-    // });
-
-    // $('#load-tracks-save').on('click', function(e) {
-    //   var file = $('#load-tracks-file').get(0).files[0];
-    //   self._loadTracksFromFile(file);
-    // });
-
   },
 
-  _clockCallback: function(ms) {
-    // $('#cursor-date').html(L.Playback.Util.DateStr(ms));
-    // $('#cursor-time').html(L.Playback.Util.TimeStr(ms));
-    // $('#time-slider').slider('value', ms);
+  _update(self){
+    var playback = this.playback;
+    var startTime = playback.getStartTime();
+    self.el('#cursor-date').innerHTML = L.Playback.Util.DateStr(startTime);
+    self.el('#cursor-time').innerHTML = L.Playback.Util.TimeStr(startTime);
+
+    self.timeSlider = this.el('#time-slider');
+    self.timeSlider.min = playback.getStartTime();
+    self.timeSlider.max = playback.getEndTime();
+    self.timeSlider.step = playback.getTickLen();
+    self.timeSlider.value = playback.getTime();
+  },
+
+  _clockCallback: function(ms, self) {
+    self.el('#cursor-date').innerHTML = L.Playback.Util.DateStr(ms);
+    self.el('#cursor-time').innerHTML = L.Playback.Util.TimeStr(ms);
+    self.el('#time-slider').value = ms;
   },
 
   _speedToSliderVal: function(speed) {
@@ -204,33 +219,14 @@ L.Playback.Control = L.Control.extend({
     return new Date(yr, mo, dy, hr, min, sec).getTime();    
   },
 
-  _loadTracksFromFile: function(file) {
-    // var self = this;
-    // var reader = new FileReader();
-    // reader.readAsText(file);
-    // reader.onload = function(e) {
-    //   var fileStr = e.target.result;
-
-    //   /**
-    //    * See if we can do GeoJSON...
-    //    */
-    //   try {
-    //     var tracks = JSON.parse(fileStr);
-    //   } catch (e) {
-    //     /**
-    //      * See if we can do GPX...
-    //      */
-    //     try {
-    //       var tracks = L.Playback.Util.ParseGPX(fileStr);
-    //     } catch (e) {
-    //       console.error('Unable to load tracks!');
-    //       return;
-    //     }
-    //   }
-
-    //   self.playback.addData(tracks);
-    //   $('#load-tracks-modal').modal('hide');
-    // };    
+  el: function(selector){
+    return this.container.querySelector(selector);
+  },
+  setDropDown: function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      this.parentElement.classList.toggle('open');
+    });
   }
 
 });

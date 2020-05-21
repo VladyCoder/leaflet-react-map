@@ -142,7 +142,7 @@ footer.lp {
 }
 
 .lp #speed-btn {
-  width: 65px;
+  width: 68px;
 }
 
 .lp .ui-slider {
@@ -207,6 +207,10 @@ footer.lp {
 .lp #speed-slider {
   margin-left: auto;
   margin-right: auto;
+  width: .8em;
+  height: 100px;
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
 }
 
 .lp .navbar .btn,
@@ -287,9 +291,6 @@ input {
   cursor: pointer;
 }
 
-
-
-
 .navbar .nav > li > .dropdown-menu:before,
 .bootstrap-timepicker-widget.dropdown-menu:before {
   top: auto;
@@ -306,3 +307,8 @@ input {
   border-top: 6px solid #ffffff;
   border-bottom: 0;
 }
+
+.open>.dropdown-menu {
+  display: block;
+}
+
